@@ -35,7 +35,13 @@ var client = new Twitter({
   access_token_secret: 'xWyUxR9agU2js4ApvFFkBriLr6CLgCtkEF0dYe9jiSGwW'
 });
 
-
+router.get('/:term',(req,res,next)=>{
+  client.get('search/tweets', {q: `${req.params.term}`,geocode:'52.50206,13.40701,30km'}, function(error, tweets, response) {
+      // console.log(tweets);
+      console.log("Got tweet");
+      res.json(tweets)
+  })
+})
 
 
 
@@ -44,12 +50,12 @@ router.get('/', (req, res, next) => {
 
 
 
-  // Stat.find()
-  //   .then(stats => {
-  //       // console.log("Stat: ",stats)
-  //     res.json(stats);
-  //   })
-  //   .catch(err => next(err))
+  Stat.find()
+    .then(stats => {
+        // console.log("Stat: ",stats)
+      res.json(stats);
+    })
+    .catch(err => next(err))
   /////////twitter test//////////
   // var twitter = new Twitter();
   	//Callback functions
@@ -62,11 +68,13 @@ router.get('/', (req, res, next) => {
 // };
 
 // twitter.getSearch({'q':'#fifa','count': 10}, error, success);
-client.get('search/tweets', {q: 'node.js',geocode:'52.50206,13.40701,100km'}, function(error, tweets, response) {
-  // console.log(tweets);
-  console.log("Got tweet");
-  res.json(tweets)
-});
+//////////////
+// client.get('search/tweets', {q: 'mongoDB',geocode:'52.50206,13.40701,100km'}, function(error, tweets, response) {
+//   // console.log(tweets);
+//   console.log("Got tweet");
+//   res.json(tweets)
+// });
+////////////
 // then(response=>{
 //   console.log(response)
 //   res.json(response)

@@ -22,7 +22,7 @@ class Countries extends Component {
   render() {                
     return (
       <div className="Stats">
-      <XYPlot
+      {/* <XYPlot
           width={300}
           height={300}>
           <HorizontalGridLines />
@@ -53,19 +53,7 @@ class Countries extends Component {
             { name: 'sickMoves', domain: [0, 20] }
           ]
         } height={300} width={400}
-        style={{
-          axes: {
-            line: {},
-            ticks: {},
-            text: {}
-          },
-          labels: {
-            fontSize: 10
-          },
-          line: {
-            strokeOpacity: 0
-          }
-        }} />
+         /> */}
         {/* {this.state.stats} */}
         
         <h2>List of stats</h2>

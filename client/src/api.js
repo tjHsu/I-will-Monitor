@@ -19,6 +19,14 @@ export default {
       .catch(errHandler);
   },
 
+  findStat(term) {
+    return service
+      .get(`/stats/${term}`)
+      .then(res => res.data)
+      .catch(errHandler);
+  },
+
+
 
   getCountries() {
     return service

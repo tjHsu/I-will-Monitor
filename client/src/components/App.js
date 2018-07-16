@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
 import Home from './Home';
 import Countries from './Countries';
+import Parallel from './Parallel'
+import Simple from './Simple'
+import PlayGround from './PlayGround'
 import AddCountry from './AddCountry';
 import Secret from './Secret';
 import Login from './Login';
 import Signup from './Signup';
 import api from '../api';
 import logo from '../logo.svg';
+
 import './App.css';
 
 class App extends Component {
@@ -31,6 +35,10 @@ class App extends Component {
           <h1 className="App-title">Welcome to React Countries</h1>
           <Link to="/">Home</Link> 
           <Link to="/countries">Countries</Link> 
+          <Link to="/parallel">Parallel</Link> 
+          <Link to="/simple">Simple</Link> 
+          <Link to="/playground">PlayGround</Link> 
+          
           <Link to="/add-country">Add country</Link> 
           {!api.isLoggedIn() && <Link to="/signup">Signup</Link> }
           {!api.isLoggedIn() && <Link to="/login">Login</Link> }
@@ -40,6 +48,9 @@ class App extends Component {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/countries" component={Countries} />
+          <Route path="/parallel" component={Parallel} />          
+          <Route path="/simple" component={Simple} />          
+          <Route path="/playground" component={PlayGround} />          
           <Route path="/add-country" component={AddCountry} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
