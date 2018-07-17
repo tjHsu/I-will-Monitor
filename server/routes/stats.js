@@ -105,41 +105,6 @@ router.get('/search/', (req, res, next) => {
                     })
                   }
 
-                  // else {
-                  //       setTimeout(function () {
-                  //         console.log("Before search tweet check query:", term, " geocode:", geocode, "||end")
-                  //         client.get('search/tweets', { q: `${term}`, geocode: `${geocode}`, count: 100 }, function (error, tweets, response) {
-                  //           // '52.50206,13.40701,30km'
-                  //           // '48.85994, 2.34146, 30km'
-                  //           // '45.47625,9.18302, 30km'
-                  //           // console.log(tweets);
-                  //           console.log("DEBUG: Got tweet");
-                  //           let createArr = tweets.statuses.map(x => x.created_at)
-                  //           let today = new Date();
-                  //           console.log("DEBUG: today", today)
-                  //           let filterArr = createArr.filter(function (s) {
-                  //             let temp = new Date(s);
-                  //             if (today - temp < 86400000) {
-                  //               return true
-                  //             } else {
-                  //               return false
-                  //             }
-                  //           })
-                  //           let obj = {}
-                  //           obj["keyword"] = `${term}`
-                  //           obj["location"] = `${req.query.location.toUpperCase()}`;
-                  //           obj["count"] = filterArr.length;
-                  //           Stat.create(obj);
-                  //           let arr = [];
-                  //           arr.push(obj)
-                  //           console.log(arr)
-                  //           res.json(arr)
-                  //         })
-                  //       }, 2500);
-                  //       // .catch(err => next(err))
-
-
-                  //     }
 
               })
           }              else {

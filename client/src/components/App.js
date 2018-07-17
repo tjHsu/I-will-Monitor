@@ -34,12 +34,12 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React Countries</h1>
           <Link to="/">Home</Link> 
-          <Link to="/countries">Countries</Link> 
+          {/* <Link to="/countries">Countries</Link>  */}
           <Link to="/parallel">Parallel</Link> 
           <Link to="/simple">Simple</Link> 
           <Link to="/playground">PlayGround</Link> 
           
-          <Link to="/add-country">Add country</Link> 
+          {/* <Link to="/add-country">Add country</Link>  */}
           {!api.isLoggedIn() && <Link to="/signup">Signup</Link> }
           {!api.isLoggedIn() && <Link to="/login">Login</Link> }
           {api.isLoggedIn() && <Link to="/" onClick={(e) => this.handleLogoutClick(e)}>Logout</Link> }

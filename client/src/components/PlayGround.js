@@ -99,10 +99,10 @@ class BasicParallelCoordinates extends Component {
           }
         }
         Data.push(obj)
-        console.log("DEBUG Data befor setstate: ",Data)
-        console.log("DEBUG Domain befor setstate: ",Domain)
-        console.log("DEBUG newItem befor setstate: ",newItem)
-        console.log("DEBUG stats befor setstate: ",stats)
+        // console.log("DEBUG Data befor setstate: ",Data)
+        // console.log("DEBUG Domain befor setstate: ",Domain)
+        // console.log("DEBUG newItem befor setstate: ",newItem)
+        // console.log("DEBUG stats befor setstate: ",stats)
         //////////////////
         this.setState({
           data: Data,
