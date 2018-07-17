@@ -5,28 +5,24 @@ var axios = require('axios');
 // const dbName = 'I-will-Monitor';
 // mongoose.connect(`mongodb://localhost/${dbName}`); //connecting to the database
 let service = axios.create({
-  baseURL:'https://newsapi.org/v2/'
+  baseURL: 'https://newsapi.org/v2/'
 })
 
 let service2 = axios.create({
-  baseURL:'http://export.arxiv.org/api/query?search_query=all:electron&start=0&max_results=10'
+  baseURL: 'http://export.arxiv.org/api/query?search_query=all:electron&start=0&max_results=10'
 })
 
-var para='everything?q=quantum+computer&sortBy=publishedAt&apiKey=6c4097e89cda4c1d90da9731e8f19a5b'
+let serviceGeocode = axios.create({
+  baseURL: 'https://maps.googleapis.com/maps/api/geocode/json?&address='
+})
+
+var para = 'everything?q=quantum+computer&sortBy=publishedAt&apiKey=6c4097e89cda4c1d90da9731e8f19a5b'
 
 
 var router = express.Router();
 
-// var Twitter = require('twitter-node-client').Twitter;
-// var config={
-//   "consumerKey": "uE5JRqAuANNi1prvSUOqgnCqu",
-//   "consumerSecret": "cIA8lIujP1DcGaXJFnkW8awIQmbGNqnoZA5mg0KiDWv92plOGC",
-//   "accessToken": "2874420983-IAr72KblWIaDdKsCeBeZae4wOq1aiGrnBKjdypq",
-//   "accessTokenSecret": "xWyUxR9agU2js4ApvFFkBriLr6CLgCtkEF0dYe9jiSGwW",
-//   "callBackUrl": ""
-// }
 var Twitter = require('twitter');
- 
+
 var client = new Twitter({
 
   consumer_key: 'uE5JRqAuANNi1prvSUOqgnCqu',
@@ -35,63 +31,196 @@ var client = new Twitter({
   access_token_secret: 'xWyUxR9agU2js4ApvFFkBriLr6CLgCtkEF0dYe9jiSGwW'
 });
 
-router.get('/:term',(req,res,next)=>{
-  client.get('search/tweets', {q: `${req.params.term}`,geocode:'52.50206,13.40701,30km', count:100}, function(error, tweets, response) {
-      // console.log(tweets);
-      console.log("DEBUG: Got tweet");
-      let createArr = tweets.statuses.map(x=>x.created_at)
-      let today = new Date();
-      console.log("DEBUG: today", today)
-      let filterArr = createArr.filter(function(s){
-        let temp = new Date(s);
-        if (today-temp < 86400000) {
-          return true
-        } else {
-          return false
-        }
-      })
-            
-      // console.log(createArr)
-      res.json(filterArr)
-  })
+let getBreackChainError = () => {
+  let err = new Error();
+  err.name = 'BreackChainError';
+  return err;
+};
+
+router.get('/geocode', (req, res, next) => {
+  serviceGeocode.get('Allemagne')
+    .then(response => {
+      // let bounds = response.data.results[0].geometry
+      console.log(response.data.results[0])
+      res.json(response.data.results[0])
+    })
+    .catch(err => console.log(err))
+
 })
+
+router.get('/search/', (req, res, next) => {
+  let term = req.query.keyword
+  term = term.toUpperCase()
+
+  console.log("DEBUG I want to see query:", req.query)
+  var geocode = "";
+  serviceGeocode.get(`${req.query.location}`)
+    .then(response => {
+      // let bounds = response.data.results[0].geometry
+      console.log(response.data.results[0])
+      let lat = response.data.results[0].geometry.location.lat
+      let lng = response.data.results[0].geometry.location.lng
+      let upperRightLat = parseFloat(response.data.results[0].geometry.bounds.northeast.lat)
+      let upperRightLng = parseFloat(response.data.results[0].geometry.bounds.northeast.lng)
+      let bottomLeftLat = parseFloat(response.data.results[0].geometry.bounds.southwest.lat)
+      let bottomLeftLng = parseFloat(response.data.results[0].geometry.bounds.southwest.lng)
+      let radius = 0.5 * Math.sqrt(((upperRightLat - bottomLeftLat) * 110.574) ** 2 + ((upperRightLng - bottomLeftLng) * Math.cos((upperRightLat - bottomLeftLat) / 2 / 180 * Math.PI) * 111.320) ** 2)
+      geocode = lat + "," + lng + "," + radius + "km";
+      console.log("I see geocode:", geocode)
+      return geocode
+    })
+    .then(
+      setTimeout(() => {
+        console.log("TIMEOUT here")
+      }, 2500)
+    )
+    .then(
+
+      Stat.find({ keyword: `${req.query.keyword.toUpperCase()}`, location: `${req.query.location ? req.query.location.toUpperCase() : ""}` })
+        .then(stats => {
+          console.log(`find query: ${req.query.keyword.toUpperCase()} and ${req.query.location ? req.query.location.toUpperCase() : ""}`)
+
+          console.log("Stat: ", stats)
+          if (stats.length != 0) {
+
+            res.json(stats);
+            // throw getBreackChainError();
+          } else if (stats.length == 0 && !req.query.location) {
+            Stat.find({ keyword: `${req.query.keyword.toUpperCase()}` })
+              .then(stats => {
+                console.log(`find query: ${req.query.keyword.toUpperCase()}`)
+                console.log("Stat: ", stats)
+                if (stats.length != 0) {
+                  res.json(stats);
+                  // throw getBreackChainError();
+                } else if (stats.length == 0 && !req.query.keyword) {
+                  Stat.find()
+                    .then(stats => {
+                      console.log(`find query: none`)
+                      console.log("Stat: ", stats)
+                      if (stats.length != 0) {
+                        res.json(stats);
+                        // throw getBreackChainError();
+                      }
+                    })
+                  }
+
+                  // else {
+                  //       setTimeout(function () {
+                  //         console.log("Before search tweet check query:", term, " geocode:", geocode, "||end")
+                  //         client.get('search/tweets', { q: `${term}`, geocode: `${geocode}`, count: 100 }, function (error, tweets, response) {
+                  //           // '52.50206,13.40701,30km'
+                  //           // '48.85994, 2.34146, 30km'
+                  //           // '45.47625,9.18302, 30km'
+                  //           // console.log(tweets);
+                  //           console.log("DEBUG: Got tweet");
+                  //           let createArr = tweets.statuses.map(x => x.created_at)
+                  //           let today = new Date();
+                  //           console.log("DEBUG: today", today)
+                  //           let filterArr = createArr.filter(function (s) {
+                  //             let temp = new Date(s);
+                  //             if (today - temp < 86400000) {
+                  //               return true
+                  //             } else {
+                  //               return false
+                  //             }
+                  //           })
+                  //           let obj = {}
+                  //           obj["keyword"] = `${term}`
+                  //           obj["location"] = `${req.query.location.toUpperCase()}`;
+                  //           obj["count"] = filterArr.length;
+                  //           Stat.create(obj);
+                  //           let arr = [];
+                  //           arr.push(obj)
+                  //           console.log(arr)
+                  //           res.json(arr)
+                  //         })
+                  //       }, 2500);
+                  //       // .catch(err => next(err))
+
+
+                  //     }
+
+              })
+          }              else {
+            setTimeout(function () {
+              console.log("Before search tweet check query:", term, " geocode:", geocode, "||end")
+              client.get('search/tweets', { q: `${term}`, geocode: `${geocode}`, count: 100 }, function (error, tweets, response) {
+                // '52.50206,13.40701,30km'
+                // '48.85994, 2.34146, 30km'
+                // '45.47625,9.18302, 30km'
+                // console.log(tweets);
+                console.log("DEBUG: Got tweet");
+                let createArr = tweets.statuses.map(x => x.created_at)
+                let today = new Date();
+                console.log("DEBUG: today", today)
+                let filterArr = createArr.filter(function (s) {
+                  let temp = new Date(s);
+                  if (today - temp < 86400000) {
+                    return true
+                  } else {
+                    return false
+                  }
+                })
+                let obj = {}
+                obj["keyword"] = `${term}`
+                obj["location"] = `${req.query.location.toUpperCase()}`;
+                obj["count"] = filterArr.length;
+                Stat.create(obj);
+                let arr = [];
+                arr.push(obj)
+                console.log(arr)
+                res.json(arr)
+              })
+            }, 2500);
+            // .catch(err => next(err))
+
+
+          }
+
+        })
+    )
+  // .catch(err => next(err))
+})
+
+
 
 
 
 // Route to get all countries
 router.get('/', (req, res, next) => {
-
+  console.log("DEBUG I want to see query here:", req.query)
 
 
   Stat.find()
     .then(stats => {
-        // console.log("Stat: ",stats)
+      // console.log("Stat: ",stats)
       res.json(stats);
     })
     .catch(err => next(err))
   /////////twitter test//////////
   // var twitter = new Twitter();
-  	//Callback functions
-	// var error = function (err, response, body) {
-    // console.log('ERROR []', err);
-// };
-// var success = function (data) {
-    // console.log('Data [%s]', data);
-    // res.json(data)
-// };
+  //Callback functions
+  // var error = function (err, response, body) {
+  // console.log('ERROR []', err);
+  // };
+  // var success = function (data) {
+  // console.log('Data [%s]', data);
+  // res.json(data)
+  // };
 
-// twitter.getSearch({'q':'#fifa','count': 10}, error, success);
-//////////////
-// client.get('search/tweets', {q: 'mongoDB',geocode:'52.50206,13.40701,100km'}, function(error, tweets, response) {
-//   // console.log(tweets);
-//   console.log("Got tweet");
-//   res.json(tweets)
-// });
-////////////
-// then(response=>{
-//   console.log(response)
-//   res.json(response)
-// });
+  // twitter.getSearch({'q':'#fifa','count': 10}, error, success);
+  //////////////
+  // client.get('search/tweets', {q: 'mongoDB',geocode:'52.50206,13.40701,100km'}, function(error, tweets, response) {
+  //   // console.log(tweets);
+  //   console.log("Got tweet");
+  //   res.json(tweets)
+  // });
+  ////////////
+  // then(response=>{
+  //   console.log(response)
+  //   res.json(response)
+  // });
 
 
 
@@ -102,7 +231,7 @@ router.get('/', (req, res, next) => {
   //   // console.log(response.data)
   //   res.json(response.data)
   // });
-  
+
   // service2.get()
   // .then(response=>{
   //   var parseString = require('xml2js').parseString;
@@ -124,34 +253,34 @@ router.get('/', (req, res, next) => {
 
   // })
   // .catch(err => console.log(err))
-///////////////
-// Stat.findOneAndUpdate({"keyword":'GAN'},{$push:{areaCount:{"country":"NO","count":"517"}}})
-//   .then((response)=>
-// res.json(response))
+  ///////////////
+  // Stat.findOneAndUpdate({"keyword":'GAN'},{$push:{areaCount:{"country":"NO","count":"517"}}})
+  //   .then((response)=>
+  // res.json(response))
 });
 
 
 // Route to get a static sample of countries
 router.get('/static-sample', (req, res, next) => {
-  res.json([{    
+  res.json([{
     "keyword": "GAN",
-    "areaCount":[{country:"DE",count:15},{country:"FR",count:42}],
-    "yearCount":[{year:2017,count:22},{year:2018,count:33}]
-    
-},
-{    
+    "areaCount": [{ country: "DE", count: 15 }, { country: "FR", count: 42 }],
+    "yearCount": [{ year: 2017, count: 22 }, { year: 2018, count: 33 }]
+
+  },
+  {
     "keyword": "NLP",
-    "areaCount":[{country:"BR",count:42},{country:"IT",count:42}],
-    "yearCount":[{year:2017,count:22},{year:2018,count:33}]
-    
-}
-])
+    "areaCount": [{ country: "BR", count: 42 }, { country: "IT", count: 42 }],
+    "yearCount": [{ year: 2017, count: 22 }, { year: 2018, count: 33 }]
+
+  }
+  ])
 });
 
 // Route to add a country
 router.post('/', (req, res, next) => {
-  let {name, capitals, area, description} = req.body
-  Country.create({name, capitals, area, description})
+  let { name, capitals, area, description } = req.body
+  Country.create({ name, capitals, area, description })
     .then(country => {
       res.json({
         success: true,

@@ -5,13 +5,16 @@ const statSchema = new mongoose.Schema({
     type: String,
     required: [true, 'The keyword name is required']
   },
-  areaCount: {
-    type: [{country:String,count:Number}],
-    default: []
+  location: {
+    type: String
+    // default: []
   },
-  yearCount: {
-    type: [{year:Number,count:Number}],
-    default: []
+  count:{
+    type: Number
+  },
+  date: {
+    type: Date,
+    default: Date.now
   }
 });
 

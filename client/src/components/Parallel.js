@@ -67,7 +67,7 @@ export default class AnimatedParallelCoordinates extends Component {
           }}
           tickFormat={t => ''}
           width={600}
-          height={300} />
+          height={200} />
         <ShowcaseButton
          onClick={() => this.setState({data: generateData()})}
          buttonContent={'UPDATE DATA'} />

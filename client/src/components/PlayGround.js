@@ -4,7 +4,7 @@ import { format } from 'd3-format';
 import { Button } from 'reactstrap';
 import SearchBar from './SearchBar'
 import api from '../api';
-import { DiscreteColorLegend, ParallelCoordinates} from 'react-vis';
+import { DiscreteColorLegend, ParallelCoordinates } from 'react-vis';
 // import DiscreteColorLegend from 'legends/discrete-color-legend';
 
 
@@ -41,7 +41,7 @@ class BasicParallelCoordinates extends Component {
     this.state = {
       stats: [],
       data: [],
-      domain: [{ name: "DE", domain: [0, 100] }, { name: "FR", domain: [0, 100] }],
+      domain: [{ name: "DE", domain: [0, 100] }, { name: "IT", domain: [0, 100] }, { name: "FR", domain: [0, 100] }],
       items: [],
       searchText: 'a'
     }
@@ -50,22 +50,69 @@ class BasicParallelCoordinates extends Component {
   }
 
   handleSearch(event) {
-    event.preventDefault()
+    // event.preventDefault()
     console.log("handleChange", event.target.value, event.target.getAttribute("name"))
     this.setState({
       searchText: event.target.value
     })
   }
 
-  handleDoSearch(){
+  handleDoSearch() {
     console.log("Let us do search")
     api.findStat(this.state.searchText)
       .then(stats => {
-        console.log(stats)
-        //   console.log("Debug: areaCount:",stats.map((c)=> c.areaCount))
-        //   this.setState({
-        //     stats: stats
-        //   })
+        console.log("Found data: ",stats)
+        function compare(a, b) {
+          if (a.keyword < b.keyword)
+            return -1;
+          if (a.keyword > b.keyword)
+            return 1;
+          return 0;
+        }
+        stats.sort(compare)
+
+        let Data = []
+        let newItem = []
+        let obj = {}
+        let temp = stats[0].keyword;
+
+        let Domain = []
+        let domainObj = {}
+        obj["name"] = temp
+        newItem.push(temp)
+        
+        for (let i = 0; i < stats.length; i++) {
+          console.log("inside forloop")
+          if (stats[i].keyword != temp) {
+            Data.push(obj)
+            temp = stats[i].keyword
+            newItem.push(temp)
+            obj = {}
+            obj["name"] = temp
+          }
+          obj[stats[i].location] = stats[i].count
+          if(Domain.filter(x=>x.name.includes(stats[i].location)).length==0){
+          domainObj = {}
+          domainObj["name"] = stats[i].location
+          domainObj['domain'] = [0, 100]
+          Domain.push(domainObj)
+          }
+        }
+        Data.push(obj)
+        console.log("DEBUG Data befor setstate: ",Data)
+        console.log("DEBUG Domain befor setstate: ",Domain)
+        console.log("DEBUG newItem befor setstate: ",newItem)
+        console.log("DEBUG stats befor setstate: ",stats)
+        //////////////////
+        this.setState({
+          data: Data,
+          domain: Domain,
+          items: newItem,
+          stats: stats
+        })
+        console.log("Debug Data:", this.state.data)
+        console.log("Debug Domain:", this.state.domain)
+        console.log("Debug Item:", this.state.items)
       })
       .catch(err => console.log(err))
   }
@@ -79,33 +126,74 @@ class BasicParallelCoordinates extends Component {
         //   stats: stats
         // })
         /////test transfer original stats into a graphic data////
-        var obj = {}
-        var domainObj = {}
-        // var itemObj = {}
-        var newArr = []
-        var newDomain = [];
-        var newItem = [];
-        // obj['keyT']="GANN"
+        // var obj = {}
+        // var domainObj = {}
+        // // var itemObj = {}
+        // var newArr = []
+        // var newDomain = [];
+        // var newItem = [];
+        // // obj['keyT']="GANN"
 
-        for (let i = 0; i < stats.length; i++) {
-          obj['name'] = stats[i].keyword
-          domainObj['name'] = stats[i].keyword
-          newItem.push(stats[i].keyword)
-          domainObj['domain'] = [0, 100]
-          console.log("Debug Obj,", obj)
-          newDomain.push(domainObj);
-          // newItem.push(itemObj);
-          for (let j = 0; j < stats[i].areaCount.length; j++) {
-            obj[stats[i].areaCount[j].country] = stats[i].areaCount[j].count
-          }
-          newArr.push(obj);
-          obj = {}
-          domainObj = {}
-          // itemObj={}
+        // for (let i = 0; i < stats.length; i++) {
+        //   obj['name'] = stats[i].keyword
+        //   domainObj['name'] = stats[i].keyword
+        //   newItem.push(stats[i].keyword)
+        //   domainObj['domain'] = [0, 100]
+        //   console.log("Debug Obj,", obj)
+        //   newDomain.push(domainObj);
+        //   // newItem.push(itemObj);
+        //   for (let j = 0; j < stats[i].areaCount.length; j++) {
+        //     obj[stats[i].areaCount[j].country] = stats[i].areaCount[j].count
+        //   }
+        //   newArr.push(obj);
+        //   obj = {}
+        //   domainObj = {}
+        //   // itemObj={}
+        // }
+
+        ///new data type//
+        function compare(a, b) {
+          if (a.keyword < b.keyword)
+            return -1;
+          if (a.keyword > b.keyword)
+            return 1;
+          return 0;
         }
+        stats.sort(compare)
+
+        let Data = []
+        let newItem = []
+        let obj = {}
+        let temp = stats[0].keyword;
+
+        let Domain = []
+        let domainObj = {}
+        obj["name"] = temp
+        
+
+        newItem.push(temp)
+        for (let i = 0; i < stats.length; i++) {
+          if (stats[i].keyword != temp) {
+            Data.push(obj)
+            temp = stats[i].keyword
+            newItem.push(temp)
+            obj = {}
+            obj["name"] = temp
+          }
+          obj[stats[i].location] = stats[i].count
+          if(Domain.filter(x=>x.name.includes(stats[i].location)).length==0){
+          domainObj = {}
+          domainObj["name"] = stats[i].location
+          domainObj['domain'] = [0, 100]
+          Domain.push(domainObj)
+          }
+        }
+        Data.push(obj)
+        console.log(Data)
+        //////////////////
         this.setState({
-          data: newArr,
-          // domain:newDomain,
+          data: Data,
+          domain: Domain,
           items: newItem,
           stats: stats
         })
@@ -121,21 +209,14 @@ class BasicParallelCoordinates extends Component {
       <div>
         <SearchBar onSearch={this.handleSearch} searchText={this.state.searchText} />
         <Button onClick={this.handleDoSearch} color="primary">Search</Button>
-        <h2>List of stats</h2>
-        {this.state.stats.map((c, i) =>
-          <li key={i}>
-            {c.keyword}
-            (
-            {c.areaCount.map(x => x.country + ", ")}
-            )
-          </li>
-        )}
+        
         <DiscreteColorLegend
           orientation="horizontal"
           width={300}
           items={this.state.items}
         />
         <ParallelCoordinates
+        animation
 
           data={this.state.data}
           tickFormat={t => wideFormat(t)}
@@ -146,7 +227,7 @@ class BasicParallelCoordinates extends Component {
           domains={this.state.domain}
           showMarks
           width={800}
-          height={600}
+          height={400}
           style={{
             axes: {
               line: {},
@@ -160,7 +241,16 @@ class BasicParallelCoordinates extends Component {
               strokeOpacity: 1
             }
           }}></ParallelCoordinates>
-
+          <h2>List of stats</h2>
+        {this.state.stats.map((c, i) =>
+          <li key={i}>
+            {c.keyword}
+            (
+            {/* {c.areaCount.map(x => x.country + ", ")} */}
+            {c.location}
+            )
+          </li>
+        )}
 
       </div>
     );

@@ -21,7 +21,7 @@ export default {
 
   findStat(term) {
     return service
-      .get(`/stats/${term}`)
+      .get(`/stats/search/?keyword=${term}`)
       .then(res => res.data)
       .catch(errHandler);
   },
