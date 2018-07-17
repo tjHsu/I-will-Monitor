@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import api from '../api';
-import {MarkSeries,XYPlot, XAxis, YAxis, HorizontalGridLines, LineSeries,ParallelCoordinates} from 'react-vis';
+// import {MarkSeries,XYPlot, XAxis, YAxis, HorizontalGridLines, LineSeries,ParallelCoordinates} from 'react-vis';
 
 class Countries extends Component {
   constructor(props) {

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import axios from 'axios'
+// import axios from 'axios'
 // import logo from './logo.svg';
 // import './App.css';
-import {Route, Link} from 'react-router-dom'
+// import {Route, Link} from 'react-router-dom'
 
 class SearchBar extends Component {
   render(){

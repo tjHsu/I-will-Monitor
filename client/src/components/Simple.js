@@ -5,10 +5,12 @@ import {format} from 'd3-format';
 // import {ParallelCoordinates} from 'index';
 // import React, {Component} from 'react';
 
-import ShowcaseButton from './ShowcaseButton';
+// import ShowcaseButton from './ShowcaseButton';
 // import {ParallelCoordinates} from 'index';
-import api from '../api';
-import {DiscreteColorLegend,MarkSeries,XYPlot, XAxis, YAxis, HorizontalGridLines, LineSeries,ParallelCoordinates, LabelSeries} from 'react-vis';
+// import api from '../api';
+// import {DiscreteColorLegend,MarkSeries,XYPlot, XAxis, YAxis, HorizontalGridLines, LineSeries,ParallelCoordinates, LabelSeries} from 'react-vis';
+import {DiscreteColorLegend,ParallelCoordinates} from 'react-vis';
+
 // import DiscreteColorLegend from 'legends/discrete-color-legend';
 
 

@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 
 import ShowcaseButton from './ShowcaseButton';
 // import {ParallelCoordinates} from 'index';
-import api from '../api';
-import {MarkSeries,XYPlot, XAxis, YAxis, HorizontalGridLines, LineSeries,ParallelCoordinates} from 'react-vis';
+// import api from '../api';
+// import {MarkSeries,XYPlot, XAxis, YAxis, HorizontalGridLines, LineSeries,ParallelCoordinates} from 'react-vis';
+import {ParallelCoordinates} from 'react-vis';
 
 const DATA = [{
   explosions: 3,

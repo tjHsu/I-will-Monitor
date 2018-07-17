@@ -36,10 +36,23 @@ var client = new Twitter({
 });
 
 router.get('/:term',(req,res,next)=>{
-  client.get('search/tweets', {q: `${req.params.term}`,geocode:'52.50206,13.40701,30km'}, function(error, tweets, response) {
+  client.get('search/tweets', {q: `${req.params.term}`,geocode:'52.50206,13.40701,30km', count:100}, function(error, tweets, response) {
       // console.log(tweets);
-      console.log("Got tweet");
-      res.json(tweets)
+      console.log("DEBUG: Got tweet");
+      let createArr = tweets.statuses.map(x=>x.created_at)
+      let today = new Date();
+      console.log("DEBUG: today", today)
+      let filterArr = createArr.filter(function(s){
+        let temp = new Date(s);
+        if (today-temp < 86400000) {
+          return true
+        } else {
+          return false
+        }
+      })
+            
+      // console.log(createArr)
+      res.json(filterArr)
   })
 })
 
