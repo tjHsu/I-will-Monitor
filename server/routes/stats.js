@@ -131,7 +131,7 @@ router.get('/search/', (req, res, next) => {
     }
   }
   let timecount=0
-  setInterval(function(){ console.log("Hello I am timer",timecount); timecount+=1; }, 1000);
+  // setInterval(function(){ console.log("Hello I am timer",timecount); timecount+=1; }, 1000);
 
   let query = {
     keyword: { $in: tempArr },
