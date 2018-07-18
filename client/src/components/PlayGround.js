@@ -251,20 +251,43 @@ class BasicParallelCoordinates extends Component {
   render() {
     return (
       <div>
-        <SearchBar onAdd={this.handleAdd} onChangeText={this.handleChange} name={"searchTextKeyword"} searchText={this.state.searchTextKeyword} />
-        <SearchBar onAdd={this.handleAdd} onChangeText={this.handleChange} name={"searchTextLocation"} searchText={this.state.searchTextLocation} />
-        <Button onClick={this.handleDoSearch} color="primary">Search</Button>
-        {this.state.keywords.map((keyword,i) => {
-              return (<SearchItem key={i} tag={keyword} onDelete={this.handleDelete} styleButton={"btn btn-primary"} />)
+      <div className="container">
+      <div className="row">
+      <div class="col-sm">
+        <SearchBar onAdd={this.handleAdd} onChangeText={this.handleChange} title={"Keyword"} name={"searchTextKeyword"} searchText={this.state.searchTextKeyword} />
+        </div>
+        <div class="col-sm">
+        <SearchBar onAdd={this.handleAdd} onChangeText={this.handleChange} title={"Location"} name={"searchTextLocation"} searchText={this.state.searchTextLocation} />
+      </div>
+
+      </div>
+      <div className="row">
+      <div class="col-sm">
+      {this.state.keywords.map((keyword,i) => {
+              return (<SearchItem key={i} tag={keyword} onDelete={this.handleDelete} styleButton={"btn btn-success"} />)
             })}
+        </div>
+        <div class="col-sm">
         {this.state.locations.map((location,i) => {
           return (<SearchItem key={i} tag={location} onDelete={this.handleDelete} styleButton={"btn btn-success"} />)
-        })}        
-        <DiscreteColorLegend
-          orientation="horizontal"
-          width={300}
+        })}
+      </div>
+
+      </div>
+      <br/>
+      <div className="row">
+      
+      <button onClick={this.handleDoSearch} className="btn btn-primary btn-block">Search</button>        
+      </div>
+      <div className="row">
+      <div class="col-sm">
+      <DiscreteColorLegend
+          height={400}
+          width={150}
           items={this.state.items}
         />
+        </div> 
+      <div class="col-sm">
         <ParallelCoordinates
         animation
 
@@ -291,9 +314,17 @@ class BasicParallelCoordinates extends Component {
               strokeOpacity: 1
             }
           }}></ParallelCoordinates>
-          <h2>List of stats</h2>
+          </div>
+      </div>
+
+      <div className="row">
+      <div class="col-sm">
+      <h2>List of stats</h2>
+      </div>
+      <div class="col-sm">
+      <ul className="list-group">
         {this.state.stats.map((c, i) =>
-          <li key={i}>
+          <li key={i} className="list-group-item">
             {c.keyword}
             (
             {/* {c.areaCount.map(x => x.country + ", ")} */}
@@ -301,7 +332,10 @@ class BasicParallelCoordinates extends Component {
             )
           </li>
         )}
-
+        </ul>      
+        </div>
+      </div>
+      </div>
       </div>
     );
   }

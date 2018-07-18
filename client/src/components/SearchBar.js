@@ -8,11 +8,15 @@ class SearchBarKeywords extends Component {
   render(){
     return (
       <div>
-      <h2>My Keyword Search</h2>
+      <h2>{this.props.title}</h2>
       <form onSubmit={this.props.onAdd} action="" name={this.props.name}>
-      <input type="text" value={this.props.searchText} name={this.props.name} placeholder="put query" onChange={this.props.onChangeText} />
-      <input type="submit" name="Add location" />
+      <div className="form-group">
+        
+      <input type="text" className="form-control" value={this.props.searchText} name={this.props.name} placeholder="put query" onChange={this.props.onChangeText} />
+      <input type="submit" className="btn btn-primary" value="Add this!" name="Add location" />
+      </div>
       </form>
+      
       </div>
     )    
   }
