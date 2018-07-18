@@ -7,7 +7,8 @@ const Schema   = mongoose.Schema; //not needed?
 
 mongoose.Promise = Promise;
 
-mongoose.connect(process.env.MONGODB_URI); //connecting to the database
+// mongoose.connect(process.env.MONGODB_URI); //connecting to the database
+mongoose.connect("mongodb://localhost/I-will-Monitor")
 
 const stat=new Stat(
     {    

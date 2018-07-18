@@ -58,7 +58,7 @@ router.get('/search/', (req, res, next) => {
   let tempArrLocation = req.query.location.toUpperCase().split(',')
   console.log("DEBUG tempArr", tempArr)
   console.log("DEBUG locationArr", tempArrLocation)
-  let delayCounter = 1000;
+  let delayCounter = 5000;
   for (let i = 0; i < tempArr.length; i++) {
     for (let j = 0; j < tempArrLocation.length; j++) {
       if (tempArr[i] === "" || tempArrLocation[j] === "") {
@@ -69,12 +69,13 @@ router.get('/search/', (req, res, next) => {
         keyword: tempArr[i],
         location: tempArrLocation[j]
       }
+      
       Stat.find(query)
         .then(stats => {
           if (stats.length == 0) {
             delayCounter+=1000;
             console.log("Query in forloop:", query)
-            serviceGeocode.get(`${query.location}`)
+            serviceGeocode.get(`${query.location}&key=AIzaSyBpsGwC9icyHVdpICn5NI9kTDMAMNwi_0c`)
               .then(response => {
                 // let bounds = response.data.results[0].geometry
                 console.log("in forloop after geocode", response.data.results[0])
@@ -89,7 +90,7 @@ router.get('/search/', (req, res, next) => {
                 console.log("in forloop I see geocode:", geocode)
                 return geocode
               })
-              .then((geocode) => {
+              .then(() => {
                 setTimeout(function () {
                   let term = query.keyword;
                   console.log("Before search tweet check query:", term, " geocode:", geocode, "||end")
@@ -128,13 +129,15 @@ router.get('/search/', (req, res, next) => {
         })
     }
   }
-
+  let timecount=0
+  setInterval(function(){ console.log("Hello I am timer",timecount); timecount+=1; }, 1000);
 
   let query = {
     keyword: { $in: tempArr },
     location: { $in: tempArrLocation }
   }
   setTimeout(function () {
+    console.log("AHHHHHHHHHHHHHHHHHH!!!!! 5secon")
   Stat.find(query)
 
     .then(stats => {
@@ -173,7 +176,7 @@ router.get('/search/', (req, res, next) => {
           })
       }
     })
-  }, 0);
+  }, delayCounter);
     
   // )
   // .catch(err => next(err))
