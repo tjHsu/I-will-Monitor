@@ -53,6 +53,7 @@ router.get('/search/', (req, res, next) => {
   term = term.toUpperCase()
 
   console.log("DEBUG I want to see query:", req.query)
+  console.log("DEBUG I want to APIcode:",process.env.GEOCODE_API)
   var geocode = "";
   let tempArr = req.query.keyword.toUpperCase().split(',')
   let tempArrLocation = req.query.location.toUpperCase().split(',')
@@ -75,7 +76,7 @@ router.get('/search/', (req, res, next) => {
           if (stats.length == 0) {
             delayCounter+=1000;
             console.log("Query in forloop:", query)
-            serviceGeocode.get(`${query.location}&key=AIzaSyBpsGwC9icyHVdpICn5NI9kTDMAMNwi_0c`)
+            serviceGeocode.get(`${query.location}&key=${process.env.GEOCODE_API}`)
               .then(response => {
                 // let bounds = response.data.results[0].geometry
                 console.log("in forloop after geocode", response.data.results[0])
