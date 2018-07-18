@@ -7,7 +7,7 @@ const Schema   = mongoose.Schema; //not needed?
 
 mongoose.Promise = Promise;
 
-const mongoUri = process.env.MONGODB_URI ;
+mongoose.connect(process.env.MONGODB_URI); //connecting to the database
 
 const stat=new Stat(
     {    
