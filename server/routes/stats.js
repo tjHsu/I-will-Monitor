@@ -89,7 +89,7 @@ router.get('/search/', (req, res, next) => {
                 console.log("in forloop I see geocode:", geocode)
                 return geocode
               })
-              .then(() => {
+              .then((geocode) => {
                 setTimeout(function () {
                   let term = query.keyword;
                   console.log("Before search tweet check query:", term, " geocode:", geocode, "||end")
@@ -120,7 +120,7 @@ router.get('/search/', (req, res, next) => {
                     console.log(arr)
                     // res.json(arr)
                   })
-                }, delayCounter);
+                }, 0);
               })
 
 
@@ -173,7 +173,7 @@ router.get('/search/', (req, res, next) => {
           })
       }
     })
-  }, delayCounter);
+  }, 0);
     
   // )
   // .catch(err => next(err))
