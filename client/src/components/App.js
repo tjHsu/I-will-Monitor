@@ -9,6 +9,7 @@ import AddCountry from './AddCountry';
 import Secret from './Secret';
 import Login from './Login';
 import Signup from './Signup';
+import Todo from './Todo'
 import api from '../api';
 import logo from '../logo.svg';
 
@@ -38,7 +39,7 @@ class App extends Component {
           <Link to="/parallel">Parallel</Link> 
           <Link to="/simple">Simple</Link> 
           <Link to="/playground">PlayGround</Link> 
-          
+          <Link to="/todo">Todo</Link> 
           {/* <Link to="/add-country">Add country</Link>  */}
           {!api.isLoggedIn() && <Link to="/signup">Signup</Link> }
           {!api.isLoggedIn() && <Link to="/login">Login</Link> }
@@ -46,11 +47,12 @@ class App extends Component {
           <Link to="/secret">Secret</Link> 
         </header>
         <Switch>
-          <Route path="/" exact component={Home} />
+          <Route path="/" exact component={PlayGround} />
           <Route path="/countries" component={Countries} />
           <Route path="/parallel" component={Parallel} />          
           <Route path="/simple" component={Simple} />          
           <Route path="/playground" component={PlayGround} />          
+          <Route path="/todo" component={Todo} />          
           <Route path="/add-country" component={AddCountry} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />

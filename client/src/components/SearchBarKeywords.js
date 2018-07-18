@@ -9,9 +9,9 @@ class SearchBarKeywords extends Component {
     return (
       <div>
       <h2>My Keyword Search</h2>
-      <form onSubmit={this.props.onAdd} action="" name={this.props.name}>
-      <input type="text" value={this.props.searchText} name={this.props.name} placeholder="put query" onChange={this.props.onChangeText} />
-      <input type="submit" name="Add location" />
+      <form onSubmit={this.props.onAdd} action="">
+      <input type="text" value={this.props.searchText} name="searchTextKeyword" placeholder="put keywords" onChange={this.props.onChangeText} />
+      <input type="submit" value="Add location" />
       </form>
       </div>
     )    

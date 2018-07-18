@@ -31,3 +31,12 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+/* test chart scaling */
+/* .rv-xy-plot {
+  width: 100% !important;
+  height: auto !important;
+}
+.rv-xy-plot__inner {
+  transform: scale(.5);
+} */

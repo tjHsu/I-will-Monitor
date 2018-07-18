@@ -2,34 +2,38 @@
 import React, { Component } from 'react';
 import { format } from 'd3-format';
 import { Button } from 'reactstrap';
+// import SearchBarKeywords from './SearchBarKeywords'
+// import SearchBarLocations from './SearchBarLocations'
 import SearchBar from './SearchBar'
+import SearchItem from './SearchItem'
 import api from '../api';
 import { DiscreteColorLegend, ParallelCoordinates } from 'react-vis';
 // import DiscreteColorLegend from 'legends/discrete-color-legend';
+// import TodoItem from './TodoItem';
+import TodoCreator from './TodoCreator';
 
 
 
+// const DATA = [
+//   { label: 'Mercedes', mileage: 7, price: 10, safety: 8, performance: 9, interior: 7, warranty: 7 },
+//   { label: 'Honda', mileage: 8, price: 6, safety: 9, performance: 6, interior: 3, warranty: 9 },
+//   { label: 'Chevrolet', mileage: 5, price: 4, safety: 6, performance: 4, interior: 5, warranty: 6 }
+// ];
 
-const DATA = [
-  { label: 'Mercedes', mileage: 7, price: 10, safety: 8, performance: 9, interior: 7, warranty: 7 },
-  { label: 'Honda', mileage: 8, price: 6, safety: 9, performance: 6, interior: 3, warranty: 9 },
-  { label: 'Chevrolet', mileage: 5, price: 4, safety: 6, performance: 4, interior: 5, warranty: 6 }
-];
+// const ITEMS = [
+//   'MERCEDES',
+//   'HONDA',
+//   'CHEVROLET'
+// ]
 
-const ITEMS = [
-  'MERCEDES',
-  'HONDA',
-  'CHEVROLET'
-]
-
-const DOMAIN = [
-  { name: 'mileage', domain: [0, 10] },
-  { name: 'price', domain: [2, 16], tickFormat: t => `$${basicFormat(t)}`, getValue: d => d.price },
-  { name: 'safety', domain: [5, 10], getValue: d => d.safety },
-  { name: 'performance', domain: [0, 10], getValue: d => d.performance },
-  { name: 'interior', domain: [0, 7], getValue: d => d.interior },
-  { name: 'warranty', domain: [10, 2], getValue: d => d.warranty }
-]
+// const DOMAIN = [
+//   { name: 'mileage', domain: [0, 10] },
+//   { name: 'price', domain: [2, 16], tickFormat: t => `$${basicFormat(t)}`, getValue: d => d.price },
+//   { name: 'safety', domain: [5, 10], getValue: d => d.safety },
+//   { name: 'performance', domain: [0, 10], getValue: d => d.performance },
+//   { name: 'interior', domain: [0, 7], getValue: d => d.interior },
+//   { name: 'warranty', domain: [10, 2], getValue: d => d.warranty }
+// ]
 
 
 const basicFormat = format('.2r');
@@ -39,27 +43,97 @@ class BasicParallelCoordinates extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      keywords:[],
+      locations:[],
       stats: [],
       data: [],
       domain: [{ name: "DE", domain: [0, 100] }, { name: "IT", domain: [0, 100] }, { name: "FR", domain: [0, 100] }],
       items: [],
-      searchText: 'a'
+      searchTextKeyword: '',
+      searchTextLocation: '',
+      searchText:''
     }
-    this.handleSearch = this.handleSearch.bind(this)
+    this.handleChange = this.handleChange.bind(this)
     this.handleDoSearch = this.handleDoSearch.bind(this)
+    this.handleAdd = this.handleAdd.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
-  handleSearch(event) {
-    // event.preventDefault()
-    console.log("handleChange", event.target.value, event.target.getAttribute("name"))
+  handleDelete(event){
+    console.log("handleDelete", event.target.value,"attribute", event.target.getAttribute("name"))
+    let stringTemp = event.target.getAttribute("name");
     this.setState({
-      searchText: event.target.value
+      keywords: this.state.keywords.filter(keyword => !keyword.includes(stringTemp)),
+      locations: this.state.locations.filter(location => !location.includes(stringTemp))
     })
+    setTimeout(() => {
+      console.log("DEBUG after delete state.keywords: ", this.state.keywords) 
+      console.log("DEBUG after delete state.locations: ", this.state.locations)  
+    }, 1000);
+  }
+
+  handleAdd(event){
+    event.preventDefault()
+    console.log("handleAdd", event.target.value, event.target.getAttribute("name"))
+    let arrTemp
+    let stringTemp = this.state[event.target.getAttribute("name")]
+    if (stringTemp !== "" && event.target.getAttribute("name").includes("Location")){
+      console.log("location")
+      arrTemp = this.state.locations.slice();
+      this.setState({
+        locations:[...arrTemp,stringTemp],
+        searchTextLocation:''
+      })
+    } else if((stringTemp !== "" && event.target.getAttribute("name").includes("Keyword"))) {
+      console.log("keyword")
+      arrTemp = this.state.keywords.slice();
+      this.setState({
+        keywords:[...arrTemp,stringTemp],
+        searchTextKeyword:''
+      })
+    }
+    console.log("DEBUG temp string add: ", stringTemp)
+
+    setTimeout(() => {
+      console.log("DEBUG state.keywords: ", this.state.keywords) 
+      console.log("DEBUG state.locations: ", this.state.locations)  
+    }, 1000);
+    
+
+  }
+
+  handleChange(event) {
+    // event.preventDefault()
+    // console.log("handleChange", event.target.value, event.target.getAttribute("name"))
+    let objTemp={};
+    objTemp[event.target.getAttribute("name")] = event.target.value
+    console.log("objTemp:",objTemp)
+    this.setState(
+      objTemp
+    )
+    console.log("DEBUG event.target.value: ", event.target.value)
+    setTimeout(() => {
+      console.log("DEBUG state.searchtextkeyword: ", this.state.searchTextKeyword)
+      console.log("DEBUG state.searchtextlocation: ", this.state.searchTextLocation)
+    }, 1000);
   }
 
   handleDoSearch() {
     console.log("Let us do search")
-    api.findStat(this.state.searchText)
+    let quearyString = ""
+    quearyString+="keyword="
+    for (let i = 0; i < this.state.keywords.length; i++) {
+      quearyString+=`${this.state.keywords[i]},`
+    }
+    quearyString=quearyString.slice(0,-1)
+
+    quearyString+="&location="
+    for (let j = 0; j < this.state.locations.length; j++) {
+      quearyString+=`${this.state.locations[j]},`
+    }
+    quearyString=quearyString.slice(0,-1)
+    // quearyString+="keyword="+this.state.keywords+"&location="+this.state.locations
+    api.findStat(quearyString)
       .then(stats => {
         console.log("Found data: ",stats)
         function compare(a, b) {
@@ -83,7 +157,7 @@ class BasicParallelCoordinates extends Component {
         
         for (let i = 0; i < stats.length; i++) {
           console.log("inside forloop")
-          if (stats[i].keyword != temp) {
+          if (stats[i].keyword !== temp) {
             Data.push(obj)
             temp = stats[i].keyword
             newItem.push(temp)
@@ -91,7 +165,7 @@ class BasicParallelCoordinates extends Component {
             obj["name"] = temp
           }
           obj[stats[i].location] = stats[i].count
-          if(Domain.filter(x=>x.name.includes(stats[i].location)).length==0){
+          if(Domain.filter(x=>x.name.includes(stats[i].location)).length===0){
           domainObj = {}
           domainObj["name"] = stats[i].location
           domainObj['domain'] = [0, 100]
@@ -120,37 +194,7 @@ class BasicParallelCoordinates extends Component {
   componentDidMount() {
     api.getStat()
       .then(stats => {
-        // console.log("Debug: areaCount:",stats.map((c)=> c.areaCount))
-        // console.log("Debug Overview: ",stats)
-        // this.setState({
-        //   stats: stats
-        // })
-        /////test transfer original stats into a graphic data////
-        // var obj = {}
-        // var domainObj = {}
-        // // var itemObj = {}
-        // var newArr = []
-        // var newDomain = [];
-        // var newItem = [];
-        // // obj['keyT']="GANN"
-
-        // for (let i = 0; i < stats.length; i++) {
-        //   obj['name'] = stats[i].keyword
-        //   domainObj['name'] = stats[i].keyword
-        //   newItem.push(stats[i].keyword)
-        //   domainObj['domain'] = [0, 100]
-        //   console.log("Debug Obj,", obj)
-        //   newDomain.push(domainObj);
-        //   // newItem.push(itemObj);
-        //   for (let j = 0; j < stats[i].areaCount.length; j++) {
-        //     obj[stats[i].areaCount[j].country] = stats[i].areaCount[j].count
-        //   }
-        //   newArr.push(obj);
-        //   obj = {}
-        //   domainObj = {}
-        //   // itemObj={}
-        // }
-
+        
         ///new data type//
         function compare(a, b) {
           if (a.keyword < b.keyword)
@@ -173,7 +217,7 @@ class BasicParallelCoordinates extends Component {
 
         newItem.push(temp)
         for (let i = 0; i < stats.length; i++) {
-          if (stats[i].keyword != temp) {
+          if (stats[i].keyword !== temp) {
             Data.push(obj)
             temp = stats[i].keyword
             newItem.push(temp)
@@ -181,7 +225,7 @@ class BasicParallelCoordinates extends Component {
             obj["name"] = temp
           }
           obj[stats[i].location] = stats[i].count
-          if(Domain.filter(x=>x.name.includes(stats[i].location)).length==0){
+          if(Domain.filter(x=>x.name.includes(stats[i].location)).length===0){
           domainObj = {}
           domainObj["name"] = stats[i].location
           domainObj['domain'] = [0, 100]
@@ -207,9 +251,15 @@ class BasicParallelCoordinates extends Component {
   render() {
     return (
       <div>
-        <SearchBar onSearch={this.handleSearch} searchText={this.state.searchText} />
+        <SearchBar onAdd={this.handleAdd} onChangeText={this.handleChange} name={"searchTextKeyword"} searchText={this.state.searchTextKeyword} />
+        <SearchBar onAdd={this.handleAdd} onChangeText={this.handleChange} name={"searchTextLocation"} searchText={this.state.searchTextLocation} />
         <Button onClick={this.handleDoSearch} color="primary">Search</Button>
-        
+        {this.state.keywords.map((keyword,i) => {
+              return (<SearchItem key={i} tag={keyword} onDelete={this.handleDelete} styleButton={"btn btn-primary"} />)
+            })}
+        {this.state.locations.map((location,i) => {
+          return (<SearchItem key={i} tag={location} onDelete={this.handleDelete} styleButton={"btn btn-success"} />)
+        })}        
         <DiscreteColorLegend
           orientation="horizontal"
           width={300}

@@ -54,31 +54,37 @@ router.get('/search/', (req, res, next) => {
 
   console.log("DEBUG I want to see query:", req.query)
   var geocode = "";
-  serviceGeocode.get(`${req.query.location}`)
-    .then(response => {
-      // let bounds = response.data.results[0].geometry
-      console.log(response.data.results[0])
-      let lat = response.data.results[0].geometry.location.lat
-      let lng = response.data.results[0].geometry.location.lng
-      let upperRightLat = parseFloat(response.data.results[0].geometry.bounds.northeast.lat)
-      let upperRightLng = parseFloat(response.data.results[0].geometry.bounds.northeast.lng)
-      let bottomLeftLat = parseFloat(response.data.results[0].geometry.bounds.southwest.lat)
-      let bottomLeftLng = parseFloat(response.data.results[0].geometry.bounds.southwest.lng)
-      let radius = 0.5 * Math.sqrt(((upperRightLat - bottomLeftLat) * 110.574) ** 2 + ((upperRightLng - bottomLeftLng) * Math.cos((upperRightLat - bottomLeftLat) / 2 / 180 * Math.PI) * 111.320) ** 2)
-      geocode = lat + "," + lng + "," + radius + "km";
-      console.log("I see geocode:", geocode)
-      return geocode
-    })
-    .then(
-      setTimeout(() => {
-        console.log("TIMEOUT here")
-      }, 2500)
-    )
-    .then(
+  // serviceGeocode.get(`${req.query.location}`)
+    // .then(response => {
+    //   // let bounds = response.data.results[0].geometry
+    //   console.log(response.data.results[0])
+    //   let lat = response.data.results[0].geometry.location.lat
+    //   let lng = response.data.results[0].geometry.location.lng
+    //   let upperRightLat = parseFloat(response.data.results[0].geometry.bounds.northeast.lat)
+    //   let upperRightLng = parseFloat(response.data.results[0].geometry.bounds.northeast.lng)
+    //   let bottomLeftLat = parseFloat(response.data.results[0].geometry.bounds.southwest.lat)
+    //   let bottomLeftLng = parseFloat(response.data.results[0].geometry.bounds.southwest.lng)
+    //   let radius = 0.5 * Math.sqrt(((upperRightLat - bottomLeftLat) * 110.574) ** 2 + ((upperRightLng - bottomLeftLng) * Math.cos((upperRightLat - bottomLeftLat) / 2 / 180 * Math.PI) * 111.320) ** 2)
+    //   geocode = lat + "," + lng + "," + radius + "km";
+    //   console.log("I see geocode:", geocode)
+    //   return geocode
+    // })
+    // .then(
 
-      Stat.find({ keyword: `${req.query.keyword.toUpperCase()}`, location: `${req.query.location ? req.query.location.toUpperCase() : ""}` })
+      // Stat.find({ keyword: {$in : [ `${req.query.keyword.toUpperCase()}`]}, location: `${req.query.location ? req.query.location.toUpperCase() : ""}` })
+      let tempArr=req.query.keyword.toUpperCase().split(',')
+      let tempArrLocation=req.query.location.toUpperCase().split(',')
+      console.log("DEBUG tempArr", tempArr)
+      let query = { keyword: {$in : tempArr}, 
+                    location: {$in: tempArrLocation} 
+                  }
+      Stat.find(query)
+      
         .then(stats => {
-          console.log(`find query: ${req.query.keyword.toUpperCase()} and ${req.query.location ? req.query.location.toUpperCase() : ""}`)
+          // console.log(`find query: ${req.query.keywords.toUpperCase()} and ${req.query.location ? req.query.location.toUpperCase() : ""}`)
+          console.log(`keyword: {$in : [ ${req.query.keyword.toUpperCase()}]}, location: {$in : [${req.query.location.toUpperCase()}]} `)
+
+          
 
           console.log("Stat: ", stats)
           if (stats.length != 0) {
@@ -144,7 +150,7 @@ router.get('/search/', (req, res, next) => {
           }
 
         })
-    )
+    // )
   // .catch(err => next(err))
 })
 
