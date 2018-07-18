@@ -20,53 +20,53 @@ const stat=new Stat(
 Stat.create([
     {    
         keyword: "REACT",
-        location: "DE",
+        location: "BERLIN",
         count: 20
     },
     {    
         keyword: "REACT",
-        location: "FR",
+        location: "PARIS",
         count: 40
     },
     {    
-        keyword: "REACT",
-        location: "IT",
+        keyword: "ANGULAR",
+        location: "BERLIN",
         count: 60
     },
     {    
         keyword: "ANGULAR",
-        location: "DE",
-        count: 60
-    },
-    {    
-        keyword: "ANGULAR",
-        location: "FR",
+        location: "PARIS",
         count: 30
-    },
-    {    
-        keyword: "ANGULAR",
-        location: "IT",
-        count: 10
     }]
 )
 
-Stat.create([
-    {    
-        keyword: "VUE",
-        location: "DE",
-        count: 15
-    },
-    {    
-        keyword: "VUE",
-        location: "FR",
-        count: 15
-    },
-    {    
-        keyword: "VUE",
-        location: "IT",
-        count: 15
-    }
-])
+// Stat.create([
+//     {    
+//         keyword: "VUE",
+//         location: "BERLIN",
+//         count: 15
+//     },
+//     {    
+//         keyword: "VUE",
+//         location: "PARIS",
+//         count: 15
+//     },
+//     {    
+//         keyword: "VUE",
+//         location: "LONDON",
+//         count: 15
+//     },
+//     {    
+//         keyword: "REACT",
+//         location: "LONDON",
+//         count: 60
+//     },
+//     {    
+//         keyword: "ANGULAR",
+//         location: "LONDON",
+//         count: 10
+//     }
+// ])
 
 // const stat=new Stat(
 //     {    
