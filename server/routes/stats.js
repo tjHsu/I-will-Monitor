@@ -53,13 +53,13 @@ router.get('/search/', (req, res, next) => {
   term = term.toUpperCase()
 
   console.log("DEBUG I want to see query:", req.query)
-  console.log("DEBUG I want to APIcode:",process.env.GEOCODE_API)
+  // console.log("DEBUG I want to APIcode:",process.env.GEOCODE_API)
   var geocode = "";
   let tempArr = req.query.keyword.toUpperCase().split(',')
   let tempArrLocation = req.query.location.toUpperCase().split(',')
   console.log("DEBUG tempArr", tempArr)
   console.log("DEBUG locationArr", tempArrLocation)
-  let delayCounter = 5000;
+  let delayCounter = 3000;
   for (let i = 0; i < tempArr.length; i++) {
     for (let j = 0; j < tempArrLocation.length; j++) {
       if (tempArr[i] === "" || tempArrLocation[j] === "") {
