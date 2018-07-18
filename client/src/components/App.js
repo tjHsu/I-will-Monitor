@@ -47,7 +47,7 @@ class App extends Component {
           <Link to="/secret">Secret</Link> 
         </header>
         <Switch>
-          <Route path="/" exact component={PlayGround} />
+          <Route path="/" exact component={Home} />
           <Route path="/countries" component={Countries} />
           <Route path="/parallel" component={Parallel} />          
           <Route path="/simple" component={Simple} />          

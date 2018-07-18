@@ -1,8 +1,58 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: "League Spartan","Times New Roman",Arial,Times, sans-serif ;
+  /* font-size: 45px; */
+  
+  color: red;
+  /* background-image: url("/background.jpg"); */
+
 }
+html {
+  font-family: "Open Sans","Times New Roman",'lucida grande', tahoma, verdana, arial, sans-serif;
+  /* font-size: 16px; */
+  color: red;
+}
+
+.Home {
+  height: 100vh;
+  background-image: url("/background.jpg");  
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;  
+}
+
+.square {
+  border: 10px solid white;
+  overflow: hidden;
+  padding-bottom: 100%;
+  position: relative;
+}
+
+.square> div {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+.square>div> div {
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+
+.square>div>div>div {
+   
+  display: table-cell;
+  text-align: left;
+  vertical-align: top;
+}
+
+.square>div>div>div>p{
+  margin-left: 30px;
+  margin-top: 30px;
+}
+
+
 
 .react-vis-magic-css-import-rule{display:inherit}
 .rv-treemap{font-size:12px;position:relative}

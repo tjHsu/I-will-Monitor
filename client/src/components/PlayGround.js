@@ -258,6 +258,7 @@ class BasicParallelCoordinates extends Component {
         </div>
         <div class="col-sm">
         <SearchBar onAdd={this.handleAdd} onChangeText={this.handleChange} title={"Location"} name={"searchTextLocation"} searchText={this.state.searchTextLocation} />
+        {/* <small id="" class="form-text text-muted">press Enter to Add search term.</small> */}
       </div>
 
       </div>
