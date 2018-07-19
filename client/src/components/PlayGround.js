@@ -16,7 +16,7 @@ import Loading  from 'react-loading-animation';
 import { UncontrolledAlert } from 'reactstrap';
 import './PlayGround.css';
 import { Container, Row, Col } from 'reactstrap';
-import * as qs from 'query-string';
+// import * as qs from 'query-string';
 
 
 
@@ -237,46 +237,56 @@ else{
     this.setState({
       isLoadingState:1
     })
-    const parsed = qs.parse(this.props.location.search);
-    console.log("parsed", parsed);
-    console.log(Object.keys(parsed).length===0)
-    console.log(parsed.constructor === Object)
-      let tempArr;
-      let tempArrLocation;
-    if (Object.keys(parsed).length === 0 || parsed.keyword==null || parsed.location==null){
-      console.log("DEBUG zero object!")
-       tempArr = [];
-       tempArrLocation = [];
-    } else {
-      console.log("DEBUG non zero object!")
-      
-     tempArr = parsed.keyword.split(',')
-     tempArrLocation = parsed.location.split(',')
-    }
-    console.log("DEBUG tempArr", tempArr)
+    // const parsed = qs.parse(this.props.location.search);
+    // console.log("BEFORE parsed", this.props.location.search);
     
-    let quearyString = ""
-    quearyString+="keyword="
-    for (let i = 0; i < tempArr.length; i++) {
-      quearyString+=`${tempArr[i]},`
-    }
-    quearyString=quearyString.slice(0,-1)
+    // console.log("parsed", parsed);
+    // console.log(Object.keys(parsed).length===0)
+    // console.log(parsed.constructor === Object)
+    //   let tempArr;
+    //   let tempArrLocation;
+    // if (Object.keys(parsed).length === 0 || parsed.keyword==null || parsed.location==null){
+    //   console.log("DEBUG zero object!")
+    //    tempArr = [];
+    //    tempArrLocation = [];
+    // } else {
+    //   console.log("DEBUG non zero object!")
+      
+    //  tempArr = parsed.keyword.split(',')
+    //  tempArrLocation = parsed.location.split(',')
+    // }
+    // console.log("DEBUG tempArr", tempArr)
+    
+    // let quearyString = ""
+    // quearyString+="keyword="
+    // for (let i = 0; i < tempArr.length; i++) {
+    //   quearyString+=`${tempArr[i]},`
+    // }
+    // quearyString=quearyString.slice(0,-1)
 
-    quearyString+="&location="
-    for (let j = 0; j < tempArrLocation.length; j++) {
-      quearyString+=`${tempArrLocation[j]},`
-    }
-    quearyString=quearyString.slice(0,-1)
+    // quearyString+="&location="
+    // for (let j = 0; j < tempArrLocation.length; j++) {
+    //   quearyString+=`${tempArrLocation[j]},`
+    // }
+    // quearyString=quearyString.slice(0,-1)
+    console.log("BEFORE parsed", this.props.location.search);
+    let quearyString=this.props.location.search    
+    quearyString=quearyString.slice(1)
 
     console.log("DEBUG query in componentDid mount:", quearyString);
 
-  console.log("DEBUG locationArr", tempArrLocation)
+  // console.log("DEBUG locationArr", tempArrLocation)
     
-    if (Object.keys(parsed).length === 0 ||parsed.keyword==null || parsed.location==null){
+    // if (Object.keys(parsed).length === 0 ||parsed.keyword==null || parsed.location==null){
+    //   this.setState({
+    //     isLoadingState:0
+    //   })
+
+    // }
+    if (quearyString.length===0 || quearyString.includes("=&")){
       this.setState({
         isLoadingState:0
       })
-
     } else {
 
     api.findStat(quearyString)
