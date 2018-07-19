@@ -67,6 +67,7 @@ class BasicParallelCoordinates extends Component {
     this.handleDoSearch = this.handleDoSearch.bind(this)
     this.handleAdd = this.handleAdd.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
+    this.handleDemo = this.handleDemo.bind(this)
   }
 
   handleDelete(event){
@@ -80,6 +81,15 @@ class BasicParallelCoordinates extends Component {
       console.log("DEBUG after delete state.keywords: ", this.state.keywords) 
       console.log("DEBUG after delete state.locations: ", this.state.locations)  
     }, 1000);
+  }
+
+  handleDemo(){
+    this.setState({
+      keywords:["REACT"],
+      locations:["Berlin","PARIS"]
+    },
+    this.handleDoSearch
+    )
   }
 
   handleAdd(event){
@@ -374,24 +384,35 @@ else{
           <Col>
           </Col>
         </Row>
-        <div class="triangle-up triangle-div"></div>
+        <div className="triangle-up triangle-div"></div>
         <div className="bottom-box">
-          <Row>
-            <Col>
+          {this.state.keywords.length===0 && this.state.data.length==0&&this.state.isLoadingState==0? 
+            <Row>
+              <div className="mx-auto mt-5 example-box">
+              Try searching with keyword REACT in location BERLIN and PARIS<br/>
+              <Button color="secondary" outline onClick={this.handleDemo}>Try</Button>
+              {/* <h3>Kewords = ["ANGULAR","REACT","VUE"] </h3><br/>
+              <h3>Locations = ["BERLIN","PARIS","MADRID"]</h3> */}
+              </div>
+            </Row> : null
+          }
+          <Row className="chart-box">
+            <div className="loader">
+              {this.state.isLoadingState===1? 
+                <Loading isLoading={this.state.isLoadingState===1} >
+              </Loading> : null
+              }
+            </div>
+            <Col className="mt-5">
               <DiscreteColorLegend
               height={400}
               width={150}
               items={this.state.items}
               />
             </Col>
-            <Col>
+            <Col className="mt-5">
               <div className="chart-box">
-                <div className="loader">
-                  {this.state.isLoadingState===1? 
-                    <Loading isLoading={this.state.isLoadingState===1} >
-                  </Loading> : null
-                  }
-                </div>
+                
                 <ParallelCoordinates
                   animation
                   data={this.state.data}

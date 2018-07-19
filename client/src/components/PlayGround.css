@@ -1,7 +1,7 @@
 
 .PlayGround{
 	color:#3A606E;
-
+    height: 100vh;
     
 }
 
@@ -12,6 +12,10 @@
 .chart-box{
     position: relative;
     /* border: 1px solid black */
+}
+
+.example-box{
+    color:#5D7C88
 }
 
 .loader{
