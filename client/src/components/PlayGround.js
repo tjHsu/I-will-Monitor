@@ -41,10 +41,10 @@ import * as qs from 'query-string';
 //   { name: 'interior', domain: [0, 7], getValue: d => d.interior },
 //   { name: 'warranty', domain: [10, 2], getValue: d => d.warranty }
 // ]
-const alert='<Alert color="info" isOpen={this.state.visible} toggle={this.onDismiss}>I am an alert and I can be dismissed!</Alert>'
+// const alert='<Alert color="info" isOpen={this.state.visible} toggle={this.onDismiss}>I am an alert and I can be dismissed!</Alert>'
 
-const basicFormat = format('.2r');
-const wideFormat = format('.3r');
+const basicFormat = format('.1r');
+const wideFormat = format('.1r');
 
 class BasicParallelCoordinates extends Component {
   constructor(props) {

@@ -14,16 +14,39 @@ import api from '../api';
 import logo from '../logo.svg';
 
 import './App.css';
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem } from 'reactstrap';
+
+
+
+
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      isOpen: false,
       countries: []
     }
+    this.toggle = this.toggle.bind(this);
     api.loadUser();
   }
-
+  
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
   handleLogoutClick(e) {
     api.logout()
   }
@@ -31,21 +54,37 @@ class App extends Component {
   render() {                
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React Countries</h1>
-          <Link to="/">Home</Link> 
+        {/* <header className="App-header"> */}
+          {/* <img src={logo} className="App-logo" alt="logo" /> */}
+          {/* <h1 className="App-title">Welcome to React Countries</h1> */}
+          {/* <Link to="/">Home</Link>  */}
           {/* <Link to="/countries">Countries</Link>  */}
           {/* <Link to="/parallel">Parallel</Link>  */}
           {/* <Link to="/simple">Simple</Link>  */}
-          <Link to="/playground">PlayGround</Link> 
+          {/* <Link to="/playground">PlayGround</Link>  */}
           {/* <Link to="/todo">Todo</Link>  */}
           {/* <Link to="/add-country">Add country</Link>  */}
           {/* {!api.isLoggedIn() && <Link to="/signup">Signup</Link> } */}
           {/* {!api.isLoggedIn() && <Link to="/login">Login</Link> } */}
           {/* {api.isLoggedIn() && <Link to="/" onClick={(e) => this.handleLogoutClick(e)}>Logout</Link> } */}
           {/* <Link to="/secret">Secret</Link>  */}
-        </header>
+        <div>
+        <Navbar color="light" light expand="md">
+          <NavbarBrand href="/"><strong>[I will Monitor]</strong></NavbarBrand>
+          <NavbarToggler onClick={this.toggle} />
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="/playground">PlayGround</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="https://github.com/tjHsu/I-will-Monitor">GitHub</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+        {/* </header> */}
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/countries" component={Countries} />

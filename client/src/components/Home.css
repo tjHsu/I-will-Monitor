@@ -4,3 +4,9 @@
 	color:#3A606E;
 }
 
+
+.fixed-square{
+	position: sticky;
+	top: 0;
+	
+}
