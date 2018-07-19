@@ -13,6 +13,7 @@ import { DiscreteColorLegend, ParallelCoordinates } from 'react-vis';
 import TodoCreator from './TodoCreator';
 import ReactLoading from 'react-loading';
 import Loading  from 'react-loading-animation';
+import { UncontrolledAlert } from 'reactstrap';
 import './PlayGround.css';
 
 import * as qs from 'query-string';
@@ -40,7 +41,7 @@ import * as qs from 'query-string';
 //   { name: 'interior', domain: [0, 7], getValue: d => d.interior },
 //   { name: 'warranty', domain: [10, 2], getValue: d => d.warranty }
 // ]
-
+const alert='<Alert color="info" isOpen={this.state.visible} toggle={this.onDismiss}>I am an alert and I can be dismissed!</Alert>'
 
 const basicFormat = format('.2r');
 const wideFormat = format('.3r');
@@ -59,7 +60,8 @@ class BasicParallelCoordinates extends Component {
       searchTextKeyword: '',
       searchTextLocation: '',
       searchText:'',
-      loadingState: 0
+      isLoadingState: 0,
+      isQueryNone:undefined
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleDoSearch = this.handleDoSearch.bind(this)
@@ -129,7 +131,7 @@ class BasicParallelCoordinates extends Component {
   handleDoSearch() {
     console.log("Let us do search")
     this.setState({
-      loadingState:1
+      isLoadingState:1
     })
     let quearyString = ""
     quearyString+="keyword="
@@ -151,7 +153,8 @@ class BasicParallelCoordinates extends Component {
     if(quearyString==="keyword&location"){
       console.log("No query get")
       this.setState({
-        loadingState:0
+        isLoadingState:0,
+        isQueryNone:1
       })
       
     }
@@ -207,7 +210,8 @@ else{
           domain: Domain,
           items: newItem,
           stats: stats,
-          loadingState:0
+          isLoadingState:0,
+          isQueryNone:0
         })
         console.log("Debug Data:", this.state.data)
         console.log("Debug Domain:", this.state.domain)
@@ -221,7 +225,7 @@ else{
 
   componentDidMount() {
     this.setState({
-      loadingState:1
+      isLoadingState:1
     })
     const parsed = qs.parse(this.props.location.search);
     console.log("parsed", parsed);
@@ -260,7 +264,7 @@ else{
     
     if (Object.keys(parsed).length === 0 ||parsed.keyword==null || parsed.location==null){
       this.setState({
-        loadingState:0
+        isLoadingState:0
       })
 
     } else {
@@ -314,7 +318,7 @@ else{
           domain: Domain,
           items: newItem,
           stats: stats,
-          loadingState:0
+          isLoadingState:0
         })
         console.log("Debug Data:", this.state.data)
         console.log("Debug Domain:", this.state.domain)
@@ -328,9 +332,16 @@ else{
  
     }
   render() {
-    // if (this.state.loadingState===1) return (<ReactLoading type={"bubbles"} color={"white"} height={'20%'} width={'20%'} />)
+    // if (this.state.isLoadingState===1) return (<ReactLoading type={"bubbles"} color={"white"} height={'20%'} width={'20%'} />)
     return (
+      
       <div className="PlayGround">
+      
+
+   
+      
+
+      
       <div className="container">
       <div className="row">
       <div className="col-sm">
@@ -358,10 +369,23 @@ else{
       <br/>
       <div className="row">
       {/* <Loading isLoading={1===1}></Loading> */}
-      <button onClick={this.handleDoSearch} className="btn btn-primary btn-block">Search</button>        
-      </div>
+      <Button onClick={this.handleDoSearch} color="primary" className="btn btn-primary btn-block">Search</Button>        
+      {this.state.isQueryNone===1&&this.state.keywords.length===0? 
+        <UncontrolledAlert  color="info" className="mx-auto mt-1">
+          Please put keywords before search!
+        </UncontrolledAlert>: null 
+      }
 
-       <Loading isLoading={this.state.loadingState===1} >
+      </div>
+      {this.state.isLoadingState===1? 
+        <Loading isLoading={this.state.isLoadingState===1} >
+      </Loading> : null
+          
+      }
+
+
+
+       
       <div className="row">
       <div className="col-sm">
       <DiscreteColorLegend
@@ -399,7 +423,6 @@ else{
           }}></ParallelCoordinates>
           </div>
       </div>
-      </Loading>
 
 
       </div>
