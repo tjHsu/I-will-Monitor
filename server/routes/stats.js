@@ -162,12 +162,13 @@ router.get('/search/', (req, res, next) => {
               res.json(stats);
               // throw getBreackChainError();
             } else if (stats.length == 0 ) {
-              Stat.find()
+              Stat.find({ keyword: "REACT" })
                 .then(stats => {
                   console.log(`find query: none`)
                   console.log("third Stat: ", stats)
                   if (stats.length != 0) {
                     res.json(stats);
+                    // res.json();
                     // throw getBreackChainError();
                   }
                 })

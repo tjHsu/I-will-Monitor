@@ -4,26 +4,35 @@ body {
   font-family: "League Spartan","Times New Roman",Arial,Times, sans-serif ;
   /* font-size: 45px; */
   
-  color: red;
+  /* color: red; */
   /* background-image: url("/background.jpg"); */
 
 }
 html {
   font-family: "Open Sans","Times New Roman",'lucida grande', tahoma, verdana, arial, sans-serif;
   /* font-size: 16px; */
-  color: red;
+  /* color: red; */
 }
+
+
+
+
 
 .Home {
-  height: 100vh;
-  background-image: url("/background.jpg");  
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;  
+  /* height: 100vh; */
+  /* background-image: url("/background.jpg");   */
+  /* background-size: cover; */
+  /* background-repeat: no-repeat; */
+  /* background-position: center center;   */
+  /* background-attachment: fixed; */
 }
+/* 
+.PlayGround{
+  background:red;
+} */
 
 .square {
-  border: 10px solid white;
+  border: 10px solid #3A606E;
   overflow: hidden;
   padding-bottom: 100%;
   position: relative;
@@ -83,8 +92,8 @@ html {
 .rv-hint__content{border-radius:4px;padding:7px 10px;font-size:12px;background:#3a3a48;box-shadow:0 2px 4px rgba(0,0,0,0.5);color:#fff;text-align:left;white-space:nowrap}
 .rv-discrete-color-legend{box-sizing:border-box;overflow-y:auto;font-size:12px}
 .rv-discrete-color-legend.horizontal{white-space:nowrap}
-.rv-discrete-color-legend-item{color:#3a3a48;border-radius:1px;padding:9px 10px}
-.rv-discrete-color-legend-item.horizontal{display:inline-block}
+.rv-discrete-color-legend-item{color:#3a3a48;border-radius:1px;padding:9px 10px;color:black}
+.rv-discrete-color-legend-item.horizontal{display:inline-block}p
 .rv-discrete-color-legend-item.horizontal .rv-discrete-color-legend-item__title{margin-left:0;display:block}
 .rv-discrete-color-legend-item__color{background:#dcdcdc;display:inline-block;height:2px;vertical-align:middle;width:14px}
 .rv-discrete-color-legend-item__title{margin-left:10px}
@@ -106,3 +115,4 @@ html {
 .rv-legend-titles__center{display:block;text-align:center;width:100%}
 .rv-legend-titles__right{right:0}
 .rv-radial-chart .rv-xy-plot__series--label{pointer-events:none}
+/* .rv-xy-plot__series--label-text{color:white} */

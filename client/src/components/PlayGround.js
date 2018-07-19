@@ -11,6 +11,12 @@ import { DiscreteColorLegend, ParallelCoordinates } from 'react-vis';
 // import DiscreteColorLegend from 'legends/discrete-color-legend';
 // import TodoItem from './TodoItem';
 import TodoCreator from './TodoCreator';
+import ReactLoading from 'react-loading';
+import Loading  from 'react-loading-animation';
+import './PlayGround.css';
+
+import * as qs from 'query-string';
+
 
 
 
@@ -47,11 +53,13 @@ class BasicParallelCoordinates extends Component {
       locations:[],
       stats: [],
       data: [],
-      domain: [{ name: "DE", domain: [0, 100] }, { name: "IT", domain: [0, 100] }, { name: "FR", domain: [0, 100] }],
+      // domain: [{ name: "DE", domain: [0, 100] }, { name: "IT", domain: [0, 100] }, { name: "FR", domain: [0, 100] }],
+      domain: [],
       items: [],
       searchTextKeyword: '',
       searchTextLocation: '',
-      searchText:''
+      searchText:'',
+      loadingState: 0
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleDoSearch = this.handleDoSearch.bind(this)
@@ -120,6 +128,9 @@ class BasicParallelCoordinates extends Component {
 
   handleDoSearch() {
     console.log("Let us do search")
+    this.setState({
+      loadingState:1
+    })
     let quearyString = ""
     quearyString+="keyword="
     for (let i = 0; i < this.state.keywords.length; i++) {
@@ -132,6 +143,19 @@ class BasicParallelCoordinates extends Component {
       quearyString+=`${this.state.locations[j]},`
     }
     quearyString=quearyString.slice(0,-1)
+
+    console.log("DEBUG query", quearyString);
+
+    this.props.history.push("/playground?"+quearyString)
+    
+    if(quearyString==="keyword&location"){
+      console.log("No query get")
+      this.setState({
+        loadingState:0
+      })
+      
+    }
+else{
     // quearyString+="keyword="+this.state.keywords+"&location="+this.state.locations
     api.findStat(quearyString)
       .then(stats => {
@@ -182,17 +206,67 @@ class BasicParallelCoordinates extends Component {
           data: Data,
           domain: Domain,
           items: newItem,
-          stats: stats
+          stats: stats,
+          loadingState:0
         })
         console.log("Debug Data:", this.state.data)
         console.log("Debug Domain:", this.state.domain)
         console.log("Debug Item:", this.state.items)
       })
       .catch(err => console.log(err))
-  }
+  
+
+    }
+    }
 
   componentDidMount() {
-    api.getStat()
+    this.setState({
+      loadingState:1
+    })
+    const parsed = qs.parse(this.props.location.search);
+    console.log("parsed", parsed);
+    console.log(Object.keys(parsed).length===0)
+    console.log(parsed.constructor === Object)
+      let tempArr;
+      let tempArrLocation;
+    if (Object.keys(parsed).length === 0 || parsed.keyword==null || parsed.location==null){
+      console.log("DEBUG zero object!")
+       tempArr = [];
+       tempArrLocation = [];
+    } else {
+      console.log("DEBUG non zero object!")
+      
+     tempArr = parsed.keyword.split(',')
+     tempArrLocation = parsed.location.split(',')
+    }
+    console.log("DEBUG tempArr", tempArr)
+    
+    let quearyString = ""
+    quearyString+="keyword="
+    for (let i = 0; i < tempArr.length; i++) {
+      quearyString+=`${tempArr[i]},`
+    }
+    quearyString=quearyString.slice(0,-1)
+
+    quearyString+="&location="
+    for (let j = 0; j < tempArrLocation.length; j++) {
+      quearyString+=`${tempArrLocation[j]},`
+    }
+    quearyString=quearyString.slice(0,-1)
+
+    console.log("DEBUG query in componentDid mount:", quearyString);
+
+  console.log("DEBUG locationArr", tempArrLocation)
+    
+    if (Object.keys(parsed).length === 0 ||parsed.keyword==null || parsed.location==null){
+      this.setState({
+        loadingState:0
+      })
+
+    } else {
+
+    api.findStat(quearyString)
+    // api.getStat()
       .then(stats => {
         
         ///new data type//
@@ -239,7 +313,8 @@ class BasicParallelCoordinates extends Component {
           data: Data,
           domain: Domain,
           items: newItem,
-          stats: stats
+          stats: stats,
+          loadingState:0
         })
         console.log("Debug Data:", this.state.data)
         console.log("Debug Domain:", this.state.domain)
@@ -247,28 +322,33 @@ class BasicParallelCoordinates extends Component {
         /////////////////////////////////////////////////////////
       })
       .catch(err => console.log(err))
-  }
+    } 
+ 
+ 
+ 
+    }
   render() {
+    // if (this.state.loadingState===1) return (<ReactLoading type={"bubbles"} color={"white"} height={'20%'} width={'20%'} />)
     return (
-      <div>
+      <div className="PlayGround">
       <div className="container">
       <div className="row">
-      <div class="col-sm">
+      <div className="col-sm">
         <SearchBar onAdd={this.handleAdd} onChangeText={this.handleChange} title={"Keyword"} name={"searchTextKeyword"} searchText={this.state.searchTextKeyword} />
         </div>
-        <div class="col-sm">
+        <div className="col-sm">
         <SearchBar onAdd={this.handleAdd} onChangeText={this.handleChange} title={"Location"} name={"searchTextLocation"} searchText={this.state.searchTextLocation} />
         {/* <small id="" class="form-text text-muted">press Enter to Add search term.</small> */}
       </div>
 
       </div>
       <div className="row">
-      <div class="col-sm">
+      <div className="col-sm">
       {this.state.keywords.map((keyword,i) => {
               return (<SearchItem key={i} tag={keyword} onDelete={this.handleDelete} styleButton={"btn btn-success"} />)
             })}
         </div>
-        <div class="col-sm">
+        <div className="col-sm">
         {this.state.locations.map((location,i) => {
           return (<SearchItem key={i} tag={location} onDelete={this.handleDelete} styleButton={"btn btn-success"} />)
         })}
@@ -277,18 +357,20 @@ class BasicParallelCoordinates extends Component {
       </div>
       <br/>
       <div className="row">
-      
+      {/* <Loading isLoading={1===1}></Loading> */}
       <button onClick={this.handleDoSearch} className="btn btn-primary btn-block">Search</button>        
       </div>
+
+       <Loading isLoading={this.state.loadingState===1} >
       <div className="row">
-      <div class="col-sm">
+      <div className="col-sm">
       <DiscreteColorLegend
           height={400}
           width={150}
           items={this.state.items}
         />
         </div> 
-      <div class="col-sm">
+      <div className="col-sm">
         <ParallelCoordinates
         animation
 
@@ -317,8 +399,19 @@ class BasicParallelCoordinates extends Component {
           }}></ParallelCoordinates>
           </div>
       </div>
+      </Loading>
 
-      <div className="row">
+
+      </div>
+      </div>
+    );
+  }
+}
+
+export default BasicParallelCoordinates
+
+
+      {/* <div className="row">
       <div class="col-sm">
       <h2>List of stats</h2>
       </div>
@@ -328,18 +421,11 @@ class BasicParallelCoordinates extends Component {
           <li key={i} className="list-group-item">
             {c.keyword}
             (
-            {/* {c.areaCount.map(x => x.country + ", ")} */}
+            {c.areaCount.map(x => x.country + ", ")}
             {c.location}
             )
           </li>
         )}
         </ul>      
         </div>
-      </div>
-      </div>
-      </div>
-    );
-  }
-}
-
-export default BasicParallelCoordinates
+      </div> */}
