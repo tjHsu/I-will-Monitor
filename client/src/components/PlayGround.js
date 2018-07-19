@@ -15,7 +15,7 @@ import ReactLoading from 'react-loading';
 import Loading  from 'react-loading-animation';
 import { UncontrolledAlert } from 'reactstrap';
 import './PlayGround.css';
-
+import { Container, Row, Col } from 'reactstrap';
 import * as qs from 'query-string';
 
 
@@ -336,100 +336,78 @@ else{
     return (
       
       <div className="PlayGround">
-      
-
-   
-      
-
-      
-      <div className="container">
-      <div className="row">
-      <div className="col-sm">
-        <SearchBar onAdd={this.handleAdd} onChangeText={this.handleChange} title={"Keyword"} name={"searchTextKeyword"} searchText={this.state.searchTextKeyword} />
-        </div>
-        <div className="col-sm">
-        <SearchBar onAdd={this.handleAdd} onChangeText={this.handleChange} title={"Location"} name={"searchTextLocation"} searchText={this.state.searchTextLocation} />
-        {/* <small id="" class="form-text text-muted">press Enter to Add search term.</small> */}
-      </div>
-
-      </div>
-      <div className="row">
-      <div className="col-sm">
-      {this.state.keywords.map((keyword,i) => {
-              return (<SearchItem key={i} tag={keyword} onDelete={this.handleDelete} styleButton={"btn btn-success"} />)
+      <Container>
+        <Row>
+          <Col>
+            <SearchBar onAdd={this.handleAdd} onChangeText={this.handleChange} title={"Keyword"} name={"searchTextKeyword"} searchText={this.state.searchTextKeyword} />
+          </Col>
+          <Col>
+            <SearchBar onAdd={this.handleAdd} onChangeText={this.handleChange} title={"Location"} name={"searchTextLocation"} searchText={this.state.searchTextLocation} />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            {this.state.keywords.map((keyword,i) => {
+                return (<SearchItem key={i} tag={keyword} onDelete={this.handleDelete} styleButton={"btn btn-success"} />)
             })}
-        </div>
-        <div className="col-sm">
-        {this.state.locations.map((location,i) => {
-          return (<SearchItem key={i} tag={location} onDelete={this.handleDelete} styleButton={"btn btn-success"} />)
-        })}
-      </div>
-
-      </div>
-      <br/>
-      <div className="row">
-      {/* <Loading isLoading={1===1}></Loading> */}
-      <Button onClick={this.handleDoSearch} color="primary" className="btn btn-primary btn-block">Search</Button>        
-      {this.state.isQueryNone===1&&this.state.keywords.length===0? 
-        <UncontrolledAlert  color="info" className="mx-auto mt-1">
-          Please put keywords before search!
-        </UncontrolledAlert>: null 
-      }
-
-      </div>
-
-
-
-
-       
-      <div className="row">
-      
-      <div className="col-sm">
-      <DiscreteColorLegend
-          height={400}
-          width={150}
-          items={this.state.items}
-        />
-        </div> 
-      <div className="col-sm chart-box">
-        <div className="loader">
-      {this.state.isLoadingState===1? 
-        <Loading isLoading={this.state.isLoadingState===1} >
-      </Loading> : null
-          
-      }
-      </div>
-        <ParallelCoordinates
-        animation
-
-          data={this.state.data}
-          tickFormat={t => wideFormat(t)}
-
-          startingAngle={0}
-          margin={50}
-          /* colorRange={['#172d47', '#911116', '#998965']} */
-          domains={this.state.domain}
-          showMarks
-          width={800}
-          height={400}
-          style={{
-            axes: {
-              line: {},
-              ticks: {},
-              text: {}
-            },
-            labels: {
-              fontSize: 14
-            },
-            line: {
-              strokeOpacity: 1
-            }
-          }}></ParallelCoordinates>
-          </div>
-      </div>
-
-
-      </div>
+          </Col>
+          <Col>
+            {this.state.locations.map((location,i) => {
+            return (<SearchItem key={i} tag={location} onDelete={this.handleDelete} styleButton={"btn btn-success"} />)
+            })}
+          </Col>
+        </Row>
+        <Row>
+          <Button onClick={this.handleDoSearch} color="primary" className="btn btn-primary btn-block">Search</Button>        
+          {this.state.isQueryNone===1&&this.state.keywords.length===0? 
+            <UncontrolledAlert  color="info" className="mx-auto mt-1">
+              Please put keywords before search!
+            </UncontrolledAlert>: null 
+          }
+        </Row>
+        <Row>
+          <Col>
+            <DiscreteColorLegend
+            height={400}
+            width={150}
+            items={this.state.items}
+            />
+          </Col>
+          <Col>
+            <div className="chart-box">
+              <div className="loader">
+                {this.state.isLoadingState===1? 
+                  <Loading isLoading={this.state.isLoadingState===1} >
+                </Loading> : null
+                }
+              </div>
+              <ParallelCoordinates
+                animation
+                data={this.state.data}
+                tickFormat={t => wideFormat(t)}
+                startingAngle={0}
+                margin={50}
+                domains={this.state.domain}
+                showMarks
+                width={800}
+                height={400}
+                style={{
+                  axes: {
+                    line: {},
+                    ticks: {},
+                    text: {}
+                  },
+                  labels: {
+                    fontSize: 14
+                  },
+                  line: {
+                    strokeOpacity: 1
+                  }
+                }}></ParallelCoordinates>
+              </div>
+          </Col>
+        </Row>
+      </Container>
       </div>
     );
   }
