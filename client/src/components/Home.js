@@ -8,6 +8,8 @@ import api from '../api';
 import { DiscreteColorLegend, ParallelCoordinates } from 'react-vis';
 import Loading  from 'react-loading-animation';
 import { UncontrolledAlert } from 'reactstrap';
+import { UncontrolledCarousel } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 import './PlayGround.css';
 
 
@@ -39,6 +41,7 @@ class Home extends Component {
     this.handleDoSearch = this.handleDoSearch.bind(this)
     this.handleFirstDemo = this.handleFirstDemo.bind(this)
     this.handleSecondDemo = this.handleSecondDemo.bind(this)
+    this.handleThirdDemo = this.handleThirdDemo.bind(this)
 
     // this.handleAdd = this.handleAdd.bind(this)
     // this.handleDelete = this.handleDelete.bind(this)
@@ -47,7 +50,7 @@ class Home extends Component {
   handleFirstDemo(){
     console.log("Handle first search")
     this.setState({
-      keywords:["kawahi"],
+      keywords:["kawahi","Dončić"],
       locations:["San Antonio","Toronto","Madrid"]
     },
     this.handleDoSearch 
@@ -57,12 +60,23 @@ class Home extends Component {
   handleSecondDemo(){
     console.log("Handle second search")
     this.setState({
-      keywords:["Brexit"],
-      locations:["London","Seoul","Melbourne"]
+      keywords:["ANGULAR","REACT","VUE"],
+      locations:["SYDNEY","MELBOURNE"]
     },
     this.handleDoSearch 
     )
   }
+
+  handleThirdDemo(){
+    console.log("Handle third search")
+    this.setState({
+      keywords:["台北","東京"],
+      locations:["BERLIN","TAIPEI","TOKYO"]
+    },
+    this.handleDoSearch 
+    )
+  }
+
 
 
   handleDoSearch() {
@@ -169,114 +183,90 @@ else{
   render() {      
               
     return (
-      <div className="Home" >
-        {/* <h2>Home</h2> */}
-        {/* <p>This is a sample project with the MERN stack</p> */}
-        {/* <img src={backgroundPicture} className="App-logo" alt="logo" /> */}
-        {/* <p><font color="white">This is some text!</font></p> */}
-
-<div className="container"></div>
-<div className="row">
-
-<div className="col-sm-4 col-xs-6 col-lg-4 ml-5 mt-5">
-  <div className="square">
-    <div>
-      <div>
-        <div>
-          <p><strong><font size="6" face="arial" >I wonder how popular is <br/> Keyword:"Kawhi" <br/> in <br/> Location:"Toronto" </font></strong></p>
-          <Button color="secondary" outline size="lg" className="float-right mr-5" onClick={this.handleFirstDemo} >Explore</Button>{' '}
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div className="col-sm-4 col-xs-6 col-lg-6 ml-5 mt-5">
-    
-<div className="row mt-5 ">
-{this.state.isLoadingState===1? 
-        <Loading isLoading={this.state.isLoadingState===1} >
-      </Loading> : null
-          
-      }
-<div className="col-sm-1 col-lg-2">
-      <DiscreteColorLegend
-          height={400}
-          width={150}
-          items={this.state.items}
-        />
-        </div> 
-      <div className="col-sm-2 col-lg-4">
-        <ParallelCoordinates
-        animation
-
-          data={this.state.data}
-          tickFormat={t => wideFormat(t)}
-
-          startingAngle={0}
-          margin={50}
-          /* colorRange={['#172d47', '#911116', '#998965']} */
-          domains={this.state.domain}
-          showMarks
-          width={800}
-          height={400}
-          style={{
-            axes: {
-              line: {},
-              ticks: {},
-              text: {}
-            },
-            labels: {
-              fontSize: 14
-            },
-            line: {
-              strokeOpacity: 1
-            }
-          }}></ParallelCoordinates>
-          </div>
-          </div>
-
-
-
-</div>
-</div>
-<br/>
-<div className="row ">
-<div className="col-sm-4 col-xs-6 ml-5 mt-5">
-  <div className="square">
-    <div>
-      <div>
-        <div>
-          <p><strong><font size="6" face="arial" >I wonder how popular is <br/> Keyword:"Brexit" <br/> in <br/> Location:"London" </font></strong></p>
-          <Button color="secondary" outline size="lg" className="float-right mr-5" onClick={this.handleSecondDemo} >Explore</Button>{' '}
-          </div>
-        
-      </div>
-    </div>
-  </div>
-</div>
-
-{/* <div className="col-sm-4 col-xs-6 col-lg-6 ml-5 mt-5">
-    
-    <div className="row mt-5">
-    {this.state.isLoadingState===1? 
-            <Loading isLoading={this.state.isLoadingState===1} >
-          </Loading> : null
+<div className="Home" >
+<Container>
+  <Row >
+    <Col xs="4">
+      <Row className="mt-5">
+        <div className="my-square">
+        <p><strong>
+              I wonder how popular is 
+              <br/> 
+                <span class="item-12">"Kawhi"</span>
+                <span class="item-22">"Dončić"</span>
+              <br/> in 
+              <br/>
+                <span class="item-13">MADRID</span>
+                <span class="item-23">SANANTONIO</span>
+                <span class="item-33">TORONTO</span>
+              <br/>
               
-          }
-    <div className="col-sm-1 col-lg-2">
+            </strong></p>
+            <Button color="secondary" outline size="lg" className="float-right" onClick={this.handleFirstDemo} >Explore</Button>{' '}
+        </div>
+      </Row>      
+      <Row className="mt-5">
+        <div className="my-square">
+        <p><strong>
+              I wonder how popular is 
+              <br/> 
+                <span class="item-13">"ANGULAR"</span>
+                <span class="item-23">"REACT"</span>
+                <span class="item-33">"VUE"</span>
+              <br/> in 
+              <br/>
+                <span class="item-12">Sydney</span>
+                <span class="item-22">MELBOURNE</span>
+              <br/>
+              
+            </strong></p>
+            <Button color="secondary" outline size="lg" className="float-right" onClick={this.handleSecondDemo} >Explore</Button>{' '}
+        </div>
+      </Row>
+      <Row className="mt-5">
+        <div className="my-square">
+        <p><strong>
+              I wonder how popular is 
+              <br/> 
+                <span class="item-12">"台北"</span>
+                <span class="item-22">"東京"</span>
+              <br/> in 
+              <br/>
+                <span class="item-13">BERLIN</span>
+                <span class="item-23">TAIPEI</span>
+                <span class="item-33">TOKYO</span>
+              <br/>
+              
+            </strong></p>
+            <Button color="secondary" outline size="lg" className="float-right" onClick={this.handleThirdDemo} >Explore</Button>{' '}
+        </div>
+      </Row>
+    </Col>
+    <Col xs="1">
+      <Row className="sticky-square">
+        <div className="legend-box">
           <DiscreteColorLegend
               height={400}
               width={150}
               items={this.state.items}
-            />
-            </div> 
-          <div className="col-sm-2 col-lg-4">
-            <ParallelCoordinates
+          />
+        </div>
+      </Row>
+    </Col>
+    <Col xs="6" >
+      <Row className="sticky-square">
+        <div className="chart-box">
+          <div className="loader">
+            {this.state.isLoadingState===1? 
+              <Loading isLoading={this.state.isLoadingState===1} >
+            </Loading> : null
+            }
+          </div>
+          <ParallelCoordinates
             animation
-    
               data={this.state.data}
               tickFormat={t => wideFormat(t)}
-    
+
               startingAngle={0}
               margin={50}
               domains={this.state.domain}
@@ -295,26 +285,26 @@ else{
                 line: {
                   strokeOpacity: 1
                 }
-              }}></ParallelCoordinates>
-              </div>
-              </div>
-    
-    
-    
-    </div> */}
-
-
-
-
-
-</div>
-<div className="row " style={{height:600}}>
-<div className="col-sm-12 col-xs-12 mx-auto my-auto" >
-<p><strong><font size="7" face="arial" >Want to explore more behind the trend? </font></strong></p>
-<Link className="btn btn-outline-dark btn-lg" to="/playground">Go to Demo and Try</Link> 
-</div>
-</div>
+              }}>
+            </ParallelCoordinates>
+          </div>
+        </Row>
+ 
+    </Col>
+  </Row>
+    <Row className="mt-5 mb-5">
+      <div className="mx-auto mt-5 demo-text-div">
+        <p><strong>Want to explore more behind the trend?</strong></p>
+        <Link className="btn btn-outline-dark btn-lg" to="/playground">Go to Demo and Try</Link> 
       </div>
+    </Row>
+    {/* <Row>  
+      <div className="mx-auto demo-button-div">
+        <Link className="btn btn-outline-dark btn-lg" to="/playground">Go to Demo and Try</Link> 
+      </div>
+    </Row> */}
+</Container>
+</div>
     );
   }
 }

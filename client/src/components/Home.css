@@ -5,8 +5,126 @@
 }
 
 
-.fixed-square{
-	position: sticky;
-	top: 0;
+.my-square{
+	border: 10px solid #3A606E;
+	text-align: left;
+	padding-left: 5%;
+	padding-top: 5%;
+	padding-right: 15%; 
+	padding-bottom: 30%;
+	font-size:200%
+	/* overflow: hidden; */
+	/* padding-bottom: 100%; */
+	/* position: relative; */
+}
+
+.legend-box{
+	/* border: 3px solid #3A606E; */
 	
+	text-align: right;
+}
+
+.chart-box{
+	position: relative;
+	text-align: right;
+	/* border: 1px solid black */
+}
+.sticky-square{
+	position: sticky;
+	top: 150px;
+	
+}
+
+
+.loader{
+    position: absolute;
+    z-index: 10;
+    /* border: 1px solid black; */
+    left:50%;
+    top:50%;
+    transform: translateX(-50%) translateY(-50%)
+}
+/* 
+.demo-button-div{
+	height: 250px;
+	width: 100%;
+} */
+
+.demo-text-div{
+	height: 800px;
+	font-size: 300%;
+	padding-top: 200px;
+	width: 100%;
+}
+
+
+
+.item-13, 
+.item-23, 
+.item-33,
+.item-12, 
+.item-22 {
+	position: absolute;
+  /* display: block; */
+	/* top: 2em; */
+  
+  /* width: 60%; */
+  
+  /* font-size: 2em; */
+
+	animation-duration: 20s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+}
+
+.item-13{
+	animation-name: anim-1;
+}
+
+.item-23{
+	animation-name: anim-2;
+}
+
+.item-33{
+	animation-name: anim-3;
+}
+
+.item-12{
+	animation-name: anim-12;
+}
+
+.item-22{
+	animation-name: anim-22;
+}
+
+
+@keyframes anim-1 {
+	0%, 8.3% { left: -100%; opacity: 0; }
+  8.3%,25% { left: 8%; opacity: 1; }
+  33.33%, 100% { left: 110%; opacity: 0; }
+}
+
+@keyframes anim-2 {
+	0%, 33.33% { left: -100%; opacity: 0; }
+  41.63%, 58.29% { left: 8%; opacity: 1; }
+  66.66%, 100% { left: 110%; opacity: 0; }
+}
+
+@keyframes anim-3 {
+	0%, 66.66% { left: -100%; opacity: 0; }
+  74.96%, 91.62% { left: 8%; opacity: 1; }
+  100% { left: 110%; opacity: 0; }
+}
+
+
+@keyframes anim-12 {
+	0%, 13% { left: -100%; opacity: 0; }
+  13%,37.5% { left: 8%; opacity: 1; }
+  51%, 100% { left: 110%; opacity: 0; }
+}
+
+@keyframes anim-22 {
+	0%, 51% { left: -100%; opacity: 0; }
+  62%, 88% { left: 8%; opacity: 1; }
+  99.99%, 100% { left: 110%; opacity: 0; }
 }

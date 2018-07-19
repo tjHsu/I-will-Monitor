@@ -377,16 +377,13 @@ else{
       }
 
       </div>
-      {this.state.isLoadingState===1? 
-        <Loading isLoading={this.state.isLoadingState===1} >
-      </Loading> : null
-          
-      }
+
 
 
 
        
       <div className="row">
+      
       <div className="col-sm">
       <DiscreteColorLegend
           height={400}
@@ -394,7 +391,14 @@ else{
           items={this.state.items}
         />
         </div> 
-      <div className="col-sm">
+      <div className="col-sm chart-box">
+        <div className="loader">
+      {this.state.isLoadingState===1? 
+        <Loading isLoading={this.state.isLoadingState===1} >
+      </Loading> : null
+          
+      }
+      </div>
         <ParallelCoordinates
         animation
 

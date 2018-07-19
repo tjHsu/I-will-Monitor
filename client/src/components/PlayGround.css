@@ -1,3 +1,19 @@
+
 .PlayGround{
-    color:black
+    color:black;
+    
+}
+
+.chart-box{
+    position: relative;
+    /* border: 1px solid black */
+}
+
+.loader{
+    position: absolute;
+    z-index: 10;
+    /* border: 1px solid black; */
+    left:50%;
+    top:50%;
+    transform: translateX(-50%) translateY(-50%)
 }

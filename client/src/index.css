@@ -30,7 +30,7 @@ html {
 .PlayGround{
   background:red;
 } */
-
+/* 
 .square {
   border: 10px solid #3A606E;
   overflow: hidden;
@@ -59,7 +59,7 @@ html {
 .square>div>div>div>p{
   margin-left: 30px;
   margin-top: 30px;
-}
+} */
 
 
 
@@ -115,4 +115,3 @@ html {
 .rv-legend-titles__center{display:block;text-align:center;width:100%}
 .rv-legend-titles__right{right:0}
 .rv-radial-chart .rv-xy-plot__series--label{pointer-events:none}
-/* .rv-xy-plot__series--label-text{color:white} */
