@@ -338,11 +338,26 @@ else{
       <div className="PlayGround">
       <Container>
         <Row>
+          <div className="mx-auto mt-5 mb-5">
+          <h1>
+            Explore the trend of the world
+          </h1>
+          </div>
+        </Row>
+        <Row>
           <Col>
-            <SearchBar onAdd={this.handleAdd} onChangeText={this.handleChange} title={"Keyword"} name={"searchTextKeyword"} searchText={this.state.searchTextKeyword} />
+            <SearchBar onAdd={this.handleAdd} onChangeText={this.handleChange} hint={"Keyword"} name={"searchTextKeyword"} searchText={this.state.searchTextKeyword} />
           </Col>
           <Col>
-            <SearchBar onAdd={this.handleAdd} onChangeText={this.handleChange} title={"Location"} name={"searchTextLocation"} searchText={this.state.searchTextLocation} />
+            <SearchBar onAdd={this.handleAdd} onChangeText={this.handleChange} hint={"Location"} name={"searchTextLocation"} searchText={this.state.searchTextLocation} />
+          </Col>
+          <Col>
+            <Button onClick={this.handleDoSearch} color="primary" className="btn btn-primary btn-block">Search</Button>        
+            {this.state.isQueryNone===1&&this.state.keywords.length===0? 
+              <UncontrolledAlert  color="info" className="mx-auto mt-1">
+                Please put keywords before search!
+              </UncontrolledAlert>: null 
+            }
           </Col>
         </Row>
         <Row>
@@ -356,57 +371,54 @@ else{
             return (<SearchItem key={i} tag={location} onDelete={this.handleDelete} styleButton={"btn btn-success"} />)
             })}
           </Col>
-        </Row>
-        <Row>
-          <Button onClick={this.handleDoSearch} color="primary" className="btn btn-primary btn-block">Search</Button>        
-          {this.state.isQueryNone===1&&this.state.keywords.length===0? 
-            <UncontrolledAlert  color="info" className="mx-auto mt-1">
-              Please put keywords before search!
-            </UncontrolledAlert>: null 
-          }
-        </Row>
-        <Row>
           <Col>
-            <DiscreteColorLegend
-            height={400}
-            width={150}
-            items={this.state.items}
-            />
           </Col>
-          <Col>
-            <div className="chart-box">
-              <div className="loader">
-                {this.state.isLoadingState===1? 
-                  <Loading isLoading={this.state.isLoadingState===1} >
-                </Loading> : null
-                }
-              </div>
-              <ParallelCoordinates
-                animation
-                data={this.state.data}
-                tickFormat={t => wideFormat(t)}
-                startingAngle={0}
-                margin={50}
-                domains={this.state.domain}
-                showMarks
-                width={800}
-                height={400}
-                style={{
-                  axes: {
-                    line: {},
-                    ticks: {},
-                    text: {}
-                  },
-                  labels: {
-                    fontSize: 14
-                  },
-                  line: {
-                    strokeOpacity: 1
+        </Row>
+            
+        <div className="bottom-box">
+          <Row>
+            <Col>
+              <DiscreteColorLegend
+              height={400}
+              width={150}
+              items={this.state.items}
+              />
+            </Col>
+            <Col>
+              <div className="chart-box">
+                <div className="loader">
+                  {this.state.isLoadingState===1? 
+                    <Loading isLoading={this.state.isLoadingState===1} >
+                  </Loading> : null
                   }
-                }}></ParallelCoordinates>
-              </div>
-          </Col>
-        </Row>
+                </div>
+                <ParallelCoordinates
+                  animation
+                  data={this.state.data}
+                  tickFormat={t => wideFormat(t)}
+                  startingAngle={0}
+                  margin={50}
+                  domains={this.state.domain}
+                  showMarks
+                  width={800}
+                  height={400}
+                  style={{
+                    axes: {
+                      line: {},
+                      ticks: {},
+                      text: {}
+                    },
+                    labels: {
+                      fontSize: 14
+                    },
+                    line: {
+                      strokeOpacity: 1
+                    }
+                  }}></ParallelCoordinates>
+                </div>
+            </Col>
+          </Row>
+        </div>
       </Container>
       </div>
     );
