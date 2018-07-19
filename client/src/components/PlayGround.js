@@ -374,7 +374,7 @@ else{
           <Col>
           </Col>
         </Row>
-            
+        <div class="triangle-up triangle-div"></div>
         <div className="bottom-box">
           <Row>
             <Col>

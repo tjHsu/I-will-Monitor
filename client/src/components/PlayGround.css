@@ -22,3 +22,23 @@
     top:50%;
     transform: translateX(-50%) translateY(-50%)
 }
+
+
+
+.triangle-up {
+    width: 9%;
+    height: 0;    
+    padding-left:5%;
+    padding-bottom: 3%;
+    overflow: hidden;
+}
+.triangle-up:after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    margin-left:-500px;
+    border-left: 500px solid transparent;
+    border-right: 500px solid transparent;
+    border-bottom: 500px solid beige;
+}
