@@ -45,3 +45,26 @@
 .rv-xy-plot__inner {
   transform: scale(.5);
 } */
+
+.navbar{
+  background-color: white;
+  /* color:#ff5500; */
+}
+.nav-link{
+  color:#3A606E !important;
+}
+
+.navbar-brand{
+  color:#3A606E !important;
+}
+.navbar-tog
+.navbar-toggler,
+.navbar-toggler-icon{
+  color:#3A606E;
+  background-color: #3A606E;
+}
+
+/* .bg-light {
+  background-color: #ff5500;
+  color:#ff5500;
+} */

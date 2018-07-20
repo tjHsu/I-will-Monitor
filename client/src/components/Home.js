@@ -202,7 +202,7 @@ else{
               <br/>
               
             </strong></p>
-            <Button color="secondary" outline size="lg" className="float-right" onClick={this.handleFirstDemo} >Explore</Button>{' '}
+            <Button color="dark" outline size="lg" className="float-right" onClick={this.handleFirstDemo} >Explore</Button>{' '}
         </div>
       </Row>      
       <Row className="mt-5">
@@ -220,7 +220,7 @@ else{
               <br/>
               
             </strong></p>
-            <Button color="secondary" outline size="lg" className="float-right" onClick={this.handleSecondDemo} >Explore</Button>{' '}
+            <Button color="dark" outline size="lg" className="float-right" onClick={this.handleSecondDemo} >Explore</Button>{' '}
         </div>
       </Row>
       <Row className="mt-5">
@@ -238,7 +238,7 @@ else{
               <br/>
               
             </strong></p>
-            <Button color="secondary" outline size="lg" className="float-right" onClick={this.handleThirdDemo} >Explore</Button>{' '}
+            <Button color="dark" outline size="lg" className="float-right" onClick={this.handleThirdDemo} >Explore</Button>{' '}
         </div>
       </Row>
     </Col>

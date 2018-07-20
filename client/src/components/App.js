@@ -68,10 +68,10 @@ class App extends Component {
           {/* {!api.isLoggedIn() && <Link to="/login">Login</Link> } */}
           {/* {api.isLoggedIn() && <Link to="/" onClick={(e) => this.handleLogoutClick(e)}>Logout</Link> } */}
           {/* <Link to="/secret">Secret</Link>  */}
-        <div>
-        <Navbar color="light" light expand="md">
+        <div className="test">
+        <Navbar color="light" light expand="lg">
           <NavbarBrand href="/"><strong>[I will Monitor]</strong></NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
+          <NavbarToggler className="navbar-tog" onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
