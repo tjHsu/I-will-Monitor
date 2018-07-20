@@ -12,7 +12,7 @@ class About extends Component {
     <div className="About" >
       <Container>
         <Row>
-          <div className="mx-auto mt-1 head-text-div">
+          <div className="mx-auto mt-1 about-text-div">
             {/* <p><strong>Verify your gusee on the trend keyword<br/>using real data from Twitter</strong></p> */}
             <p>
               The goal of this application is to provide a way for us to see how popular of certain keywords
@@ -21,7 +21,7 @@ class About extends Component {
           </div>
         </Row>
         <Row>
-          <div className="mx-auto mt-1 head-text-div">
+          <div className="mx-auto mt-1 about-text-div">
             <p>
               We can verify our guess on the trend topic with the date sampled from Twitter easily. <br/>
               And besides, we can also have a rough idea of whether we are living in an echo chamber or a filter bubble.
@@ -29,7 +29,7 @@ class About extends Component {
           </div>
         </Row>
         <Row>
-          <div className="mx-auto mt-1 head-text-div">
+          <div className="mx-auto mt-1 about-text-div">
             {/* <p><strong>Verify your gusee on the trend keyword<br/>using real data from Twitter</strong></p> */}
             <p>
               Method:<br/>

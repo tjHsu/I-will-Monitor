@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { format } from 'd3-format';
 import { Button } from 'reactstrap';
 import { Route, Link, Switch } from 'react-router-dom';
-import './Home.css';
 import ReactLoading from 'react-loading';
 import api from '../api';
 import { DiscreteColorLegend, ParallelCoordinates } from 'react-vis';
@@ -10,7 +9,8 @@ import Loading  from 'react-loading-animation';
 import { UncontrolledAlert } from 'reactstrap';
 import { UncontrolledCarousel } from 'reactstrap';
 import { Container, Row, Col } from 'reactstrap';
-import './PlayGround.css';
+import './Home.css';
+// import './PlayGround.css';
 
 
 
@@ -188,7 +188,7 @@ else{
   <Row>
     <div className="mx-auto mt-1 head-text-div">
       
-      <p classNam="text-left"><strong>Verify your gusee on the trend keyword<br/>using real data from Twitter</strong></p>
+      <p classNam="text-left"><strong>Verify your gusse on the trend<br/>using real data from Twitter</strong></p>
     </div>
   </Row>
   <Row >
