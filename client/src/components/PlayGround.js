@@ -158,7 +158,7 @@ class BasicParallelCoordinates extends Component {
 
     console.log("DEBUG query", quearyString);
 
-    this.props.history.push("/playground?"+quearyString)
+    this.props.history.push("/explore?"+quearyString)
     
     if(quearyString==="keyword&location"){
       console.log("No query get")

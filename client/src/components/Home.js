@@ -185,6 +185,12 @@ else{
     return (
 <div className="Home" >
 <Container>
+  <Row>
+    <div className="mx-auto mt-1 head-text-div">
+      
+      <p classNam="text-left"><strong>Verify your gusee on the trend keyword<br/>using real data from Twitter</strong></p>
+    </div>
+  </Row>
   <Row >
     <Col xs="4">
       <Row className="mt-5">
@@ -243,7 +249,7 @@ else{
       </Row>
     </Col>
     <Col xs="1">
-      <Row className="sticky-square">
+      <Row className="sticky-square mt-5">
         <div className="legend-box">
           <DiscreteColorLegend
               height={400}
@@ -254,7 +260,7 @@ else{
       </Row>
     </Col>
     <Col xs="6" >
-      <Row className="sticky-square">
+      <Row className="sticky-square mt-5">
         <div className="chart-box">
           <div className="loader">
             {this.state.isLoadingState===1? 
@@ -295,7 +301,7 @@ else{
     <Row className="mt-5 mb-5">
       <div className="mx-auto mt-5 demo-text-div">
         <p><strong>Want to explore more behind the trend?</strong></p>
-        <Link className="btn btn-outline-dark btn-lg" to="/playground">Go to Demo and Try</Link> 
+        <Link className="btn btn-outline-dark btn-lg" to="/playground">Go and Try</Link> 
       </div>
     </Row>
     {/* <Row>  

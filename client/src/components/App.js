@@ -12,6 +12,7 @@ import Signup from './Signup';
 import Todo from './Todo'
 import api from '../api';
 import logo from '../logo.svg';
+import About from './About'
 
 import './App.css';
 import {
@@ -75,7 +76,10 @@ class App extends Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/playground">PlayGround</NavLink>
+                <NavLink href="/about">About</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="/explore">Explore</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink href="https://github.com/tjHsu/I-will-Monitor">GitHub</NavLink>
@@ -90,7 +94,8 @@ class App extends Component {
           <Route path="/countries" component={Countries} />
           <Route path="/parallel" component={Parallel} />          
           <Route path="/simple" component={Simple} />          
-          <Route path="/playground" component={PlayGround} />          
+          <Route path="/explore" component={PlayGround} />         
+          <Route path="/about" component={About} />          
           <Route path="/todo" component={Todo} />          
           <Route path="/add-country" component={AddCountry} />
           <Route path="/signup" component={Signup} />
