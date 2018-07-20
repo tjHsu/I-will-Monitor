@@ -23,7 +23,7 @@ class About extends Component {
         <Row className="mt-5">
           <div className="mx-auto mt-1 about-text-div">
             <p style={{fontSize:'42px'}}>
-              We can verify our guess on the trend topic with the date sampled from Twitter easily. <br/>
+              We can verify our guess on the trend topic with the data sampled from Twitter easily. <br/>
               And besides, we can also have a rough idea of whether we are living in an echo chamber or a filter bubble.
             </p>
           </div>

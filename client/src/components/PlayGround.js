@@ -399,12 +399,14 @@ else{
         <div className="bottom-box">
           {this.state.keywords.length===0 && this.state.data.length==0&&this.state.isLoadingState==0? 
             <Row>
+              <Col>
               <div className="mx-auto mt-5 example-box">
               Try searching with keyword REACT in location BERLIN and PARIS<br/>
               <Button color="secondary" outline onClick={this.handleDemo}>Try</Button>
               {/* <h3>Kewords = ["ANGULAR","REACT","VUE"] </h3><br/>
               <h3>Locations = ["BERLIN","PARIS","MADRID"]</h3> */}
               </div>
+              </Col>
             </Row> : null
           }
           <Row className="chart-box">
