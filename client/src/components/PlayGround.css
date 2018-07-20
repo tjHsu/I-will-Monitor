@@ -11,7 +11,7 @@
 
 .chart-box{
     position: relative;
-    /* border: 1px solid black */
+    /* border: 5px solid black */
 }
 
 .example-box{
@@ -22,7 +22,8 @@
 	/* border: 3px solid #3A606E; */
 	/* padding-left:80%; */
     text-align: right;
-    float:right;
+    /* float:center; */
+    margin:auto;
 }
 
 .loader{

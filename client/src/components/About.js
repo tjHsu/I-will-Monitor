@@ -11,27 +11,26 @@ class About extends Component {
     return (
     <div className="About" >
       <Container>
-        <Row>
+        <Row className="mt-5">
           <div className="mx-auto mt-1 about-text-div">
             {/* <p><strong>Verify your gusee on the trend keyword<br/>using real data from Twitter</strong></p> */}
-            <p>
+            <p style={{fontSize:'42px'}}>
               The goal of this application is to provide a way for us to see how popular of certain keywords
               in certain areas are.<br/>
             </p>
           </div>
         </Row>
-        <Row>
+        <Row className="mt-5">
           <div className="mx-auto mt-1 about-text-div">
-            <p>
+            <p style={{fontSize:'42px'}}>
               We can verify our guess on the trend topic with the date sampled from Twitter easily. <br/>
               And besides, we can also have a rough idea of whether we are living in an echo chamber or a filter bubble.
             </p>
           </div>
         </Row>
-        <Row>
+        <Row className="mt-5">
           <div className="mx-auto mt-1 about-text-div">
-            {/* <p><strong>Verify your gusee on the trend keyword<br/>using real data from Twitter</strong></p> */}
-            <p>
+            <p style={{fontSize:'42px'}}>
               Method:<br/>
               The data is collected from Twitter API. <br/>
               With every search term, 100 sampled tweets are sent in to the backend.

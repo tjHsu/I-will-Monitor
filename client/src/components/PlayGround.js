@@ -352,6 +352,8 @@ else{
     }
   render() {
     // if (this.state.isLoadingState===1) return (<ReactLoading type={"bubbles"} color={"white"} height={'20%'} width={'20%'} />)
+    const chartWidth= window.innerWidth>800 ?　800 : 410
+    const legendHeight = window.innerWidth>800 ? 400: 80
     return (
       
       <div className="PlayGround">
@@ -371,7 +373,7 @@ else{
             <SearchBar onAdd={this.handleAdd} onChangeText={this.handleChange} hint={"Location"} name={"searchTextLocation"} searchText={this.state.searchTextLocation} />
           </Col>
           <Col>
-            <Button onClick={this.handleDoSearch} color="primary" className="btn btn-primary btn-block">Search</Button>        
+            <Button onClick={this.handleDoSearch} color="primary" className="btn btn-primary btn-block">Explore</Button>        
             {this.state.isQueryNone===1&&this.state.keywords.length===0? 
               <UncontrolledAlert  color="info" className="mx-auto mt-1">
                 Please put keywords before search!
@@ -382,12 +384,12 @@ else{
         <Row>
           <Col>
             {this.state.keywords.map((keyword,i) => {
-                return (<SearchItem key={i} tag={keyword} onDelete={this.handleDelete} styleButton={"btn btn-success"} />)
+                return (<SearchItem key={i} tag={keyword} onDelete={this.handleDelete} styleButton={"btn btn-info"} />)
             })}
           </Col>
           <Col>
             {this.state.locations.map((location,i) => {
-            return (<SearchItem key={i} tag={location} onDelete={this.handleDelete} styleButton={"btn btn-success"} />)
+            return (<SearchItem key={i} tag={location} onDelete={this.handleDelete} styleButton={"btn btn-info"} />)
             })}
           </Col>
           <Col>
@@ -412,18 +414,8 @@ else{
               </Loading> : null
               }
             </div>
-            <Col className="mt-5">
-              <div className="legend-playground-box">
-                <DiscreteColorLegend
-                height={400}
-                width={150}
-                items={this.state.items}
-                />
-              </div>
-            </Col>
-            <Col className="mt-5">
-              <div className="chart-box">
-                
+            
+            <Col md="6" className="mt-5">  
                 <ParallelCoordinates
                   animation
                   data={this.state.data}
@@ -432,7 +424,7 @@ else{
                   margin={50}
                   domains={this.state.domain}
                   showMarks
-                  width={800}
+                  width={chartWidth}
                   height={400}
                   style={{
                     axes: {
@@ -447,7 +439,16 @@ else{
                       strokeOpacity: 1
                     }
                   }}></ParallelCoordinates>
-                </div>
+              
+            </Col>
+            <Col md="3" className="mt-5">
+              <div className="legend-playground-box">
+                <DiscreteColorLegend
+                height={legendHeight}
+                width={150}
+                items={this.state.items}
+                />
+              </div>
             </Col>
           </Row>
         </div>

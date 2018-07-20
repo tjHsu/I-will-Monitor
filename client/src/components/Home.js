@@ -181,30 +181,31 @@ else{
 
 
   render() {      
-              
+    const chartWidth= window.innerWidth>800 ?　800 : 410
+    const legendHeight = window.innerWidth>800 ? 400: 80
     return (
 <div className="Home" >
 <Container>
-  <Row>
+  <Row className="mb-5">
     <div className="mx-auto mt-1 head-text-div">
       
-      <p classNam="text-left"><strong>Verify your gusse on the trend<br/>using real data from Twitter</strong></p>
+      <p className="text-left"><strong>Verify your gusse on the trend<br/>using real data from Twitter</strong></p>
     </div>
   </Row>
-  <Row >
-    <Col xs="4">
+  <Row className="mt-5">
+    <Col xs="12" md="4">
       <Row className="mt-5">
         <div className="my-square">
         <p><strong>
               I wonder how popular is 
               <br/> 
-                <span class="item-12">"Kawhi"</span>
-                <span class="item-22">"Dončić"</span>
+                <span className="item-12">"Kawhi"</span>
+                <span className="item-22">"Dončić"</span>
               <br/> in 
               <br/>
-                <span class="item-13">MADRID</span>
-                <span class="item-23">SANANTONIO</span>
-                <span class="item-33">TORONTO</span>
+                <span className="item-13">MADRID</span>
+                <span className="item-23">SANANTONIO</span>
+                <span className="item-33">TORONTO</span>
               <br/>
               
             </strong></p>
@@ -216,13 +217,13 @@ else{
         <p><strong>
               I wonder how popular is 
               <br/> 
-                <span class="item-13">"ANGULAR"</span>
-                <span class="item-23">"REACT"</span>
-                <span class="item-33">"VUE"</span>
+                <span className="item-13">"ANGULAR"</span>
+                <span className="item-23">"REACT"</span>
+                <span className="item-33">"VUE"</span>
               <br/> in 
               <br/>
-                <span class="item-12">Sydney</span>
-                <span class="item-22">MELBOURNE</span>
+                <span className="item-12">Sydney</span>
+                <span className="item-22">MELBOURNE</span>
               <br/>
               
             </strong></p>
@@ -234,13 +235,13 @@ else{
         <p><strong>
               I wonder how popular is 
               <br/> 
-                <span class="item-12">"台北"</span>
-                <span class="item-22">"東京"</span>
+                <span className="item-12">"台北"</span>
+                <span className="item-22">"東京"</span>
               <br/> in 
               <br/>
-                <span class="item-13">BERLIN</span>
-                <span class="item-23">TAIPEI</span>
-                <span class="item-33">TOKYO</span>
+                <span className="item-13">BERLIN</span>
+                <span className="item-23">TAIPEI</span>
+                <span className="item-33">TOKYO</span>
               <br/>
               
             </strong></p>
@@ -248,18 +249,18 @@ else{
         </div>
       </Row>
     </Col>
-    <Col xs="1">
+    <Col xs="12" md="1">
       <Row className="sticky-square mt-5">
         <div className="legend-box">
           <DiscreteColorLegend
-              height={400}
+              height={legendHeight}
               width={150}
               items={this.state.items}
           />
         </div>
       </Row>
     </Col>
-    <Col xs="6" >
+    <Col xs="12" md="6">
       <Row className="sticky-square mt-5">
         <div className="chart-box">
           <div className="loader">
@@ -277,7 +278,7 @@ else{
               margin={50}
               domains={this.state.domain}
               showMarks
-              width={800}
+              width={chartWidth}
               height={400}
               style={{
                 axes: {
@@ -302,6 +303,7 @@ else{
       <div className="mx-auto mt-5 demo-text-div">
         <p><strong>Want to explore more behind the trend?</strong></p>
         <Link className="btn btn-outline-dark btn-lg" to="/playground">Go and Try</Link> 
+        <Link className="btn btn-outline-dark btn-lg ml-1" to="/about">About Method</Link> 
       </div>
     </Row>
     {/* <Row>  

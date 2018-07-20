@@ -6,7 +6,6 @@ class SearchItem extends Component {
 
       <button type="button" className={this.props.styleButton} name={this.props.tag} onClick={this.props.onDelete}>
   {this.props.tag} <span className="badge badge-light" name={this.props.tag} onClick={this.props.onDelete}>x</span>
-  <span className="sr-only">unread messages</span>
 </button>
       
 
