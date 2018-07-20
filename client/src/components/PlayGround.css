@@ -18,6 +18,13 @@
     color:#5D7C88
 }
 
+.legend-playground-box{
+	/* border: 3px solid #3A606E; */
+	/* padding-left:80%; */
+    text-align: right;
+    float:right;
+}
+
 .loader{
     position: absolute;
     z-index: 10;

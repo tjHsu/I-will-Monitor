@@ -10,8 +10,7 @@ import api from '../api';
 import { DiscreteColorLegend, ParallelCoordinates } from 'react-vis';
 // import DiscreteColorLegend from 'legends/discrete-color-legend';
 // import TodoItem from './TodoItem';
-import TodoCreator from './TodoCreator';
-import ReactLoading from 'react-loading';
+// import ReactLoading from 'react-loading';
 import Loading  from 'react-loading-animation';
 import { UncontrolledAlert } from 'reactstrap';
 import './PlayGround.css';
@@ -414,11 +413,13 @@ else{
               }
             </div>
             <Col className="mt-5">
-              <DiscreteColorLegend
-              height={400}
-              width={150}
-              items={this.state.items}
-              />
+              <div className="legend-playground-box">
+                <DiscreteColorLegend
+                height={400}
+                width={150}
+                items={this.state.items}
+                />
+              </div>
             </Col>
             <Col className="mt-5">
               <div className="chart-box">

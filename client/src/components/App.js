@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
 import Home from './Home';
-import Countries from './Countries';
-import Parallel from './Parallel'
-import Simple from './Simple'
 import PlayGround from './PlayGround'
-import AddCountry from './AddCountry';
 import Secret from './Secret';
 import Login from './Login';
 import Signup from './Signup';
-import Todo from './Todo'
 import api from '../api';
 import logo from '../logo.svg';
 import About from './About'
@@ -91,13 +86,8 @@ class App extends Component {
         {/* </header> */}
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/countries" component={Countries} />
-          <Route path="/parallel" component={Parallel} />          
-          <Route path="/simple" component={Simple} />          
           <Route path="/explore" component={PlayGround} />         
           <Route path="/about" component={About} />          
-          <Route path="/todo" component={Todo} />          
-          <Route path="/add-country" component={AddCountry} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route path="/secret" component={Secret} />

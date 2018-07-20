@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { format } from 'd3-format';
 import { Button } from 'reactstrap';
 import { Route, Link, Switch } from 'react-router-dom';
-import ReactLoading from 'react-loading';
+// import ReactLoading from 'react-loading';
 import api from '../api';
 import { DiscreteColorLegend, ParallelCoordinates } from 'react-vis';
 import Loading  from 'react-loading-animation';

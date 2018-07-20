@@ -26,7 +26,6 @@
     "passport-local-mongoose": "^5.0.0",
     "serve-favicon": "~2.4.5",
     "twitter": "^1.7.1",
-    "twitter-node-client": "git+https://github.com/BoyCook/TwitterJSClient.git",
     "xml2js": "^0.4.19"
   }
 }
