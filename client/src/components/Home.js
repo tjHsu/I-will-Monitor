@@ -189,7 +189,7 @@ else{
   <Row className="mb-5">
     <div className="mx-auto mt-1 head-text-div">
       
-      <p className="text-left"><strong>Verify your gusse on the trend<br/>using real data from Twitter</strong></p>
+      <p className="text-left"><strong>Verify your guess on the trend<br/>using real data from Twitter</strong></p>
     </div>
   </Row>
   <Row className="mt-5">
