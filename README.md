@@ -1,5 +1,4 @@
-# I will Monitor | An Application built with MERN stack
-# No Longer Actively Maintained
+# (No Longer Actively Maintained) I will Monitor | An Application built with MERN stack
 
 [Link to the Website](https://i-will-monitor.herokuapp.com/)
 
